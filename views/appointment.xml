@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="appointment_tree" model="ir.ui.view">
+        <field name="name">clinic.appointment.tree</field>
+        <field name="model">clinic.appointment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="patient_id"/>
+                <field name="id"/>
+                <field name="state"/>
+                <field name="appointmentDate"/>
+                <field name="patientStatus"/>
+                <field name="urgencyLevel"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="appointment_calendar" model="ir.ui.view">
+            <field name="name">clinic.appointment.calendar</field>
+            <field name="model">clinic.appointment</field>
+            <field name="arch" type="xml">
+                <calendar string="Appointment Calendar" mode="month" date_start="appointmentDate" color="patient_id">
+                    <field name="patient_id"/>
+                    <field name="state" filters="1" />
+                </calendar>
+            </field>
+        </record>
+    <record id="appointment_form" model="ir.ui.view">
+        <field name="name">clinic.appointment.form</field>
+        <field name="model">clinic.appointment</field>
+        <field name="arch" type="xml">
+            <form string="Appointment">
+                <header>
+                    <button id="appointment_draft" class="btn-primary" attrs="{'invisible': [('state','in',('draft'))]} "   name="action_draft"  string="Draft"
+                             type="object"  />
+                    <button id="appointment_confirm" name="action_confirm"  string="Confirm"
+                            attrs="{'invisible': [('state','in',('confirmed','done','cancel'))]}" class="btn-primary"  type="object"  />
+                    <button id="appointment_done" class="btn-primary"  attrs="{'invisible': [('state','in',('draft','done','cancel'))]} " name="action_done"  string="Mark As Done"
+                             type="object"  />
+                    <button id="appointment_cancel" attrs="{'invisible': [('state','in',('cancel'))]}" name="action_cancel"  string="Cancel" type="object"  />
+                    <field name="state" widget="statusbar"  statusbar_visible="draft,confirmed,done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="id"/>
+                            <field name="patient_id"/>
+                            <field name="appointmentDate" />
+                            <field name="patientStatus"/>
+                            <field name="urgencyLevel"/>
+                        </group>
+                        <group>
+                            <field name="patientTemp"/>
+                            <field name="observation"/>
+                        </group>
+                        <group>
+                            <field name="appointment_type_id"/>
+                            <field name="price"/>
+                        </group>
+                    </group>
+                    <notebook>
+
+                        <page string="Medications" name="Medications">
+                            <group>
+                                <field name="prescription_id"></field>
+                            </group>
+                            <group>
+                                 <field name="medication_ids"></field>
+                            </group>
+
+                        </page>
+                        <page string="Labtests" name="Labtests">
+                            <group>
+                                 <field name="labtest_ids"></field>
+                                <field name="labtest_results" />
+                            </group>
+                        </page>
+                        <page string="Imaging" name="Imaging">
+                            <group>
+                                 <field name="imaging_ids"></field>
+                                <field name="imaging_results" />
+                            </group>
+                        </page>
+
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="appointment_action" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clinic.appointment</field>
+        <field name="view_mode">calendar,tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first appointment
+            </p>
+        </field>
+    </record>
+    <!-- Top menu item -->
+
+
+    <menuitem id="my_clinic_appointment_root"
+              name="Appointments"
+              parent="my_clinic_root"
+              sequence="15"/>
+
+    <menuitem id="my_clinic_appointment"
+              name="Appointments"
+              parent="my_clinic_appointment_root"
+              action="appointment_action"
+              sequence="10"/>
+
+</odoo>

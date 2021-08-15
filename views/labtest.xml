@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+         <record id="labtest_tree" model="ir.ui.view">
+            <field name="name">clinic.labtest.form</field>
+        <field name="model">clinic.labtest</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name" />
+                    <field name="prerequisites" />
+                    <field name="code" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="labtest_form" model="ir.ui.view">
+        <field name="name">clinic.labtest.form</field>
+        <field name="model">clinic.labtest</field>
+        <field name="arch" type="xml">
+            <form string="LabTest">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="prerequisites" />
+                             <field name="code" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="labtest_action" model="ir.actions.act_window">
+        <field name="name">Labtests</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clinic.labtest</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first LabTest
+            </p>
+        </field>
+    </record>
+    <!-- Top menu item -->
+    <menuitem id="my_clinic_labtest_root"
+              name="Labtest"
+              parent="my_clinic_root"
+              sequence="20"/>
+
+    <menuitem id="my_clinic_labtest"
+              name="Labtest"
+              parent="my_clinic_labtest_root"
+              action="labtest_action"
+              sequence="10"/>
+
+</odoo>

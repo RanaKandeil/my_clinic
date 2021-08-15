@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+     <record id="appointment_type_tree" model="ir.ui.view">
+        <field name="name">clinic.appointmenttype.tree</field>
+        <field name="model">clinic.appointmenttype</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name" />
+                <field name="price"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="appointment_type_action" model="ir.actions.act_window">
+        <field name="name">Appointment Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clinic.appointmenttype</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Appointment Type
+            </p>
+        </field>
+    </record>
+
+    <!-- Top menu item -->
+    <menuitem id="configuration_root"
+              name="Configurations"
+              parent="my_clinic_root"
+              sequence="50"/>
+
+    <menuitem id="Appointment_type"
+              name="Appointment Type"
+              parent="configuration_root"
+              action="appointment_type_action"
+              sequence="13"/>
+
+</odoo>

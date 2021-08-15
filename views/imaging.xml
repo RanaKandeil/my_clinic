@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+         <record id="imaging_tree" model="ir.ui.view">
+            <field name="name">clinic.imaging.form</field>
+            <field name="model">clinic.imaging</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="service" />
+                    <field name="code" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="imaging_form" model="ir.ui.view">
+        <field name="name">clinic.imaging.form</field>
+        <field name="model">clinic.imaging</field>
+        <field name="arch" type="xml">
+            <form string="Imaging">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="prerequisites" />
+                            <field name="code" />
+                        </group>
+                         <group>
+                            <field name="service" />
+                            <field name="type" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="imaging_action" model="ir.actions.act_window">
+        <field name="name">Imaging</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clinic.imaging</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Imaging
+            </p>
+        </field>
+    </record>
+    <!-- Top menu item -->
+    <menuitem id="my_clinic_imaging_root"
+              name="Imaging"
+              parent="my_clinic_root"
+              sequence="21"/>
+
+    <menuitem id="my_clinic_imaging"
+              name="Imaging"
+              parent="my_clinic_imaging_root"
+              action="imaging_action"
+              sequence="10"/>
+
+</odoo>
