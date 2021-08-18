@@ -68,7 +68,7 @@
                                             </div>
 
                                        </div>
-                                       <div class="text-center" style="margin:.5em;">
+                                       <div class="text-center" >
                                         <t t-foreach="o.medication_ids" t-as="line">
                                                <div class="row" style="margin:.5em;">
                                                 <div class="col-4 text-left">
@@ -85,14 +85,14 @@
                                        </div>
                                     </div>
                                     <div class="text-center" style="margin-bottom:1em;">
-                                        <span style="color:#875A7B;font-size:17px"><strong>Observations</strong></span>
+                                        <span style="color:#875A7B;font-size:17px"><strong>Diagnosis</strong></span>
                                      </div>
                                     <div class="text-center border">
                                     <div class="text-center" style="margin:1em;">
 
                                                <div class="row" style="margin:.5em;">
                                                 <div class="col-12 text-left">
-                                                     <span  ><span t-field="o.observation"/></span>
+                                                     <span  ><span t-raw="o.diagnosis_html"/></span>
                                                 </div>
 
                                             </div>

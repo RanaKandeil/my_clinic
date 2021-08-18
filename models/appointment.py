@@ -41,6 +41,8 @@ class Appointment(models.Model):
                                    'imaging_id', string='My Imaging')
     imaging_results = fields.Char(string='Imaging Results')
 
+    diagnosis_html = fields.Text('Diagnosis', help="Rich-text/HTML message")
+    company_id = fields.Many2one('res.company', required=True, default=lambda self: self.env.company , readonly=True)
     @api.onchange('prescription_id')
     def onchange_prescription_id(self):
         if self.prescription_id:
@@ -72,3 +74,5 @@ class Appointment(models.Model):
         self.appointment_type_id = None
         self.price = 0
         self.state = 'cancel'
+
+   
