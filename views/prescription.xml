@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="medication_tree" model="ir.ui.view">
-        <field name="name">clinic.medication.tree</field>
-        <field name="model">clinic.medication</field>
-        <field name="arch" type="xml">
-            <tree>
-                <field name="name"/>
-                <field name="indication"/>
-                <field name="dose"/>
-                <field name="frequency"/>
-            </tree>
-        </field>
-    </record>
+
 
     <record id="prescription_form" model="ir.ui.view">
         <field name="name">clinic.prescription.form</field>
@@ -27,8 +16,17 @@
                         </group>
                     </group>
                     <notebook>
-                        <page string="Medications" name="Medications">
-                            <field name="medication_ids"></field>
+                        <page string="Prescription Medications" name="Prescription_Medications">
+                            <field name="presc_med_ids">
+                                <tree editable="bottom">
+                                   <field name="medicament_id" />
+                                    <field name="concentration" />
+                                    <field name="doasge_form" />
+                                    <field name="frequency" />
+                                    <field name="duration" />
+                                    <field name="note" />
+                                </tree>
+                            </field>
                         </page>
                     </notebook>
                 </sheet>
@@ -36,41 +34,8 @@
         </field>
     </record>
 
-    <record id="medication_form" model="ir.ui.view">
-        <field name="name">clinic.medication.form</field>
-        <field name="model">clinic.medication</field>
-        <field name="arch" type="xml">
-            <form string="Medication">
-                <sheet>
-                    <group>
-                        <group>
-                            <field name="name"/>
-                            <field name="indication"/>
-                        </group>
-                        <group>
-                            <field name="dose"/>
-                            <field name="frequency"/>
-                            <field name="prescription_id"/>
 
-                        </group>
 
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
-
-    <record id="medication_action" model="ir.actions.act_window">
-        <field name="name">Medications</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">clinic.medication</field>
-        <field name="view_mode">tree,form,kanban</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create your first Medication
-            </p>
-        </field>
-    </record>
 
      <record id="prescription_action" model="ir.actions.act_window">
         <field name="name">Prescriptions</field>
@@ -92,11 +57,7 @@
               parent="my_clinic_root"
               sequence="16"/>
 
-    <menuitem id="my_clinic_medication"
-              name="Medications"
-              parent="prescription_root"
-              action="medication_action"
-              sequence="13"/>
+
 
     <menuitem id="my_clinic_prescriptions"
               name="Prescriptions"

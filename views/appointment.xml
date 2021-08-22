@@ -9,6 +9,7 @@
                 <field name="patient_id"/>
                 <field name="id"/>
                 <field name="state"/>
+                <field name="price" sum="Total of price"/>
                 <field name="appointmentDate"/>
                 <field name="patientStatus"/>
                 <field name="urgencyLevel"/>
@@ -26,13 +27,46 @@
                 </calendar>
             </field>
         </record>
+
+    <record id="appointment_graph" model="ir.ui.view">
+            <field name="name">clinic.appointment.graph</field>
+            <field name="model">clinic.appointment</field>
+            <field name="arch" type="xml">
+                <graph string="Appointment Graph" >
+                    <field name="appointment_type_id" />
+                    <field name="appointmentDate" />
+                </graph>
+            </field>
+    </record>
+
+    <record id="medication_form" model="ir.ui.view">
+        <field name="name">clinic.medication.form</field>
+        <field name="model">clinic.medication</field>
+        <field name="arch" type="xml">
+            <form string="Medication">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="therapeuticeffect"/>
+                        </group>
+                        <group>
+                            <field name="activecomponent"/>
+                            <field name="prescription_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
     <record id="appointment_form" model="ir.ui.view">
         <field name="name">clinic.appointment.form</field>
         <field name="model">clinic.appointment</field>
         <field name="arch" type="xml">
             <form string="Appointment">
                 <header>
-
                     <button id="appointment_draft" class="btn-primary" attrs="{'invisible': [('state','in',('draft'))]} "   name="action_draft"  string="Draft"
                              type="object"  />
                     <button id="appointment_confirm" name="action_confirm"  string="Confirm"
@@ -63,13 +97,21 @@
 
                     </group>
                     <notebook>
-
-                        <page string="Medications" name="Medications">
+                          <page string="Prescription" name="Prescription">
                             <group>
                                 <field name="prescription_id"></field>
                             </group>
                             <group>
-                                 <field name="medication_ids"></field>
+                                 <field name="medication_Prescrption_ids"  >
+                                     <tree editable="bottom">
+                                         <field name="medicament_id"/>
+                                         <field name="concentration"/>
+                                         <field name="doasge_form"/>
+                                         <field name="frequency"/>
+                                         <field name="duration"/>
+                                         <field name="note"/>
+                                     </tree>
+                                 </field>
                             </group>
 
                         </page>
@@ -104,6 +146,7 @@
                 <separator/>
                 <filter string = "Today" name="appointmentDate" domain="[('appointmentDate', '&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0))),
                                ('appointmentDate', '&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59)))] "/>
+                <filter string = "Type" name="appointment_type_id" domain="[('appointment_type_id.name', '=', 'kashf')]" />
                 <group expand="0" string="Group By">
                     <filter string="State" name="state" context="{'group_by': 'state'}"/>
                 </group>
@@ -115,20 +158,36 @@
         <field name="name">Appointments</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">clinic.appointment</field>
-        <field name="view_mode">tree,calendar,form,kanban</field>
+        <field name="view_mode">tree,calendar,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create your first appointment
             </p>
         </field>
     </record>
-    <!-- Top menu item -->
 
+    <record id="appointment_graph_action" model="ir.actions.act_window">
+        <field name="name">Analysis</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clinic.appointment</field>
+        <field name="view_mode">graph</field>
+    </record>
+    <!-- Top menu item -->
+    <menuitem id="my_clinic_appointment_graph_root"
+              name="Doctor"
+              parent="my_clinic_root"
+              sequence="40"/>
+
+    <menuitem id="my_clinic_appointment-graph"
+              name="Analysis"
+              parent="my_clinic_appointment_graph_root"
+              action="appointment_graph_action"
+              sequence="10"/>
 
     <menuitem id="my_clinic_appointment_root"
               name="Appointments"
               parent="my_clinic_root"
-              sequence="15"/>
+              sequence="1"/>
 
     <menuitem id="my_clinic_appointment"
               name="Appointments"

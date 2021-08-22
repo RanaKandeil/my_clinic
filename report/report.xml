@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-<!--        <record id="report_patient_prescription" model="ir.actions.report">-->
-<!--            <field name="name">Prescriptions</field>-->
-<!--            <field name="model">clinic.appointment</field>-->
-<!--            <field name="report_type">qweb-pdf</field>-->
-<!--            <field name="report_name">my_clinic.report_patient_prescription</field>-->
-<!--            <field name="report_file">my_clinic.report_patient_prescription</field>-->
-<!--            <field name="binding_model_id" ref="model_clinic_appointment"/>-->
-<!--            <field name="binding_type">report</field>-->
-<!--           <field name="paperformat_id" ref="paperformat_payslip_group"/>-->
-<!--        </record>-->
-
     <record id="paperformat_payslip_group"
             model="report.paperformat">
         <field name="name">European A4</field>

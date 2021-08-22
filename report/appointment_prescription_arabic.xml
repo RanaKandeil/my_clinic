@@ -26,7 +26,7 @@
                         </div>
                         <div class="col-4 text-right">
                             <ul class="list-inline ">
-                              <li class="list-inline-item "><span style="color:#6c757d; font-size:15px" t-field="o.patient_id.name"/></li>
+                              <li class="list-inline-item "><span style="color:#6c757d; font-size:15px" t-field="o.id"/></li>
                                 <li class="list-inline-item " style="color:#6082B6; font-size:15px;" ><strong>رقم الوصفة</strong>  </li>
                             </ul>
                         </div>
@@ -79,7 +79,7 @@
 
                                        </div>
                                     </div>
-                    <t t-if="o.medication_ids">
+                    <t t-if="o.medication_Prescrption_ids">
                          <div class="text-center" style="margin-bottom:1em;margin-top:1em;">
                         <p style="color:#6082B6; font-size:17px"><strong>الروشتة الطبية</strong></p>
                      </div>
@@ -87,29 +87,47 @@
                     <div class="text-center " style="margin:1em;">
 
                                <div class="row" >
-                                <div class="col-4 text-right">
+                                    <div class="col-2 text-right">
+                                    <span style="color:#6082B6 ;font-size:15px;" ><strong>ملاحطات</strong></span>
+                                </div>
+                                  <div class="col-2 text-right">
+                                    <span style="color:#6082B6 ;font-size:15px;" ><strong>المدة</strong></span>
+                                </div>
+                                <div class="col-2 text-right">
                                     <span style="color:#6082B6; font-size:15px;" ><strong>عدد المرات</strong></span>
                                 </div>
-                                <div class="col-4 text-right">
-                                    <span style="color:#6082B6 ;font-size:15px;" ><strong>الجرعة</strong></span>
+                                <div class="col-2 text-right">
+                                    <span style="color:#6082B6 ;font-size:15px;" ><strong>الوحده</strong></span>
                                 </div>
-                                <div class="col-4 text-right">
+                                   <div class="col-2 text-right">
+                                     <span style="color:#6082B6 ;font-size:15px;" ><strong> التركيز</strong></span>
+                                </div>
+                                <div class="col-2 text-right">
                                      <span style="color:#6082B6 ;font-size:15px;" ><strong>اسم الدواء</strong></span>
                                 </div>
                             </div>
 
                        </div>
                        <div class="text-center" >
-                        <t t-foreach="o.medication_ids" t-as="line">
+                        <t t-foreach="o.medication_Prescrption_ids" t-as="line">
                                <div class="row" style="margin:.5em;">
-                                <div class="col-4 text-right">
+                                <div class="col-2 text-right">
+                                   <span style="color:#6c757d; font-size:15px" t-field="line.note"/>
+                                </div>
+                                <div class="col-2 text-right">
+                                   <span style="color:#6c757d; font-size:15px" t-field="line.duration"/>
+                                </div>
+                                <div class="col-2 text-right">
                                    <span style="color:#6c757d; font-size:15px" t-field="line.frequency"/>
                                 </div>
-                                <div class="col-4 text-right">
-                                    <span style="color:#6c757d; font-size:15px" t-field="line.dose"/>
+                                <div class="col-2 text-right">
+                                    <span style="color:#6c757d; font-size:15px" t-field="line.doasge_form"/>
                                 </div>
-                                <div class="col-4 text-right">
-                                      <span style="color:#6c757d; font-size:15px" t-field="line.name"/>
+                                <div class="col-2 text-right">
+                                      <span style="color:#6c757d; font-size:15px" t-field="line.concentration"/>
+                                </div>
+                                <div class="col-2 text-right">
+                                      <span style="color:#6c757d; font-size:15px" t-field="line.medicament_id.name"/>
                                 </div>
                             </div>
                         </t>

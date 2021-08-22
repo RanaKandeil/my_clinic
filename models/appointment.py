@@ -30,10 +30,13 @@ class Appointment(models.Model):
     observation = fields.Char(string="Observation")
     price = fields.Float(string="Price")
     patient_id = fields.Many2one('clinic.patient', string="Patient")
-    appointment_type_id = fields.Many2one('clinic.appointmenttype', string="Appointment Type")
+    appointment_type_id = fields.Many2one('clinic.appointmenttype', string="Appointment Type", required=True)
     prescription_id = fields.Many2one('clinic.prescription', string="Prescription")
     medication_ids = fields.Many2many('clinic.medication', 'appointment_medication_rel', 'appointment_id',
                                       'medication_id', string='My Medications')
+    # medication_Prescrption_ids = fields.Many2many('clinic.medicationpresc', 'appointment_med_presc_rel', 'appointment_id',
+    #                                   'medication_presc_id', string='My Prescription')
+    medication_Prescrption_ids = fields.One2many('clinic.medicationpresc', 'appointment_id', String='Prescription')
     labtest_ids = fields.Many2many('clinic.labtest', 'appointment_labtest_rel', 'appointment_id',
                                       'labtest_id', string='My Labtests')
     labtest_results = fields.Char(string='Labtests Results')
@@ -43,12 +46,13 @@ class Appointment(models.Model):
 
     diagnosis_html = fields.Text('Diagnosis', help="Rich-text/HTML message")
     company_id = fields.Many2one('res.company', required=True, default=lambda self: self.env.company , readonly=True)
+
     @api.onchange('prescription_id')
     def onchange_prescription_id(self):
         if self.prescription_id:
-            self.medication_ids = self.prescription_id.medication_ids
+            self.medication_Prescrption_ids = self.prescription_id.presc_med_ids
         else:
-            self.medication_ids = None
+            self.medication_Prescrption_ids = None
 
     @api.onchange('appointment_type_id')
     def onchange_appointment_type_id(self):

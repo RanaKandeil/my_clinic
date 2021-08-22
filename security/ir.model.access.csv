@@ -7,3 +7,8 @@ access_clinic_prescription,access.clinic.prescription,model_clinic_prescription,
 access_clinic_appointmenttype,access.clinic.appointmenttype,model_clinic_appointmenttype,,1,1,1,1
 access_clinic_imaging,access.clinic.imaging,model_clinic_imaging,,1,1,1,1
 access_clinic_labtest,access.clinic.labtest,model_clinic_labtest,,1,1,1,1
+access_clinic_medicationpresc,access.clinic.medicationpresc,model_clinic_medicationpresc,,1,1,1,1
+access_clinic_concentration,access.clinic.concentration,model_clinic_concentration,,1,1,1,1
+access_clinic_dosageform,access.clinic.dosageform,model_clinic_dosageform,,1,1,1,1
+access_clinic_frequency,access.clinic.frequency,model_clinic_frequency,,1,1,1,1
+access_clinic_duration,access.clinic.duration,model_clinic_duration,,1,1,1,1

@@ -24,16 +24,122 @@
         </field>
     </record>
 
+    <record id="medication_tree" model="ir.ui.view">
+        <field name="name">clinic.medication.tree</field>
+        <field name="model">clinic.medication</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+                <field name="therapeuticeffect"/>
+                <field name="activecomponent"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="medication_form" model="ir.ui.view">
+        <field name="name">clinic.medication.form</field>
+        <field name="model">clinic.medication</field>
+        <field name="arch" type="xml">
+            <form string="Medication">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="therapeuticeffect"/>
+                        </group>
+                        <group>
+                           <field name="activecomponent"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+<!--      <record id="medication_prescription_tree" model="ir.ui.view">-->
+<!--        <field name="name">clinic.medication.tree</field>-->
+<!--        <field name="model">clinic.medicationpresc</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <tree>-->
+<!--                <field name="medicament_id"/>-->
+<!--                <field name="concentration"/>-->
+<!--                <field name="doasge_form"/>-->
+<!--                <field name="frequency"/>-->
+<!--                <field name="duration"/>-->
+<!--            </tree>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <record id="medication_prescription_form" model="ir.ui.view">-->
+<!--        <field name="name">clinic.medicationpresc.form</field>-->
+<!--        <field name="model">clinic.medicationpresc</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <form string="Medication Prescription">-->
+<!--                <sheet>-->
+<!--                    <group>-->
+<!--                        <group>-->
+<!--                            <field name="medicament_id"/>-->
+<!--                            <field name="concentration"/>-->
+<!--                        </group>-->
+<!--                        <group>-->
+<!--                           <field name="doasge_form"/>-->
+<!--                            <field name="frequency"/>-->
+<!--                            <field name="duration"/>-->
+<!--                        </group>-->
+<!--                    </group>-->
+<!--                </sheet>-->
+<!--            </form>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <record id="medication_action" model="ir.actions.act_window">
+        <field name="name">Medications</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clinic.medication</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Medication
+            </p>
+        </field>
+    </record>
+
+     <record id="prescription_medication_action" model="ir.actions.act_window">
+        <field name="name">Prescription Mediacation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clinic.medicationpresc</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Medication
+            </p>
+        </field>
+    </record>
+
+
     <!-- Top menu item -->
     <menuitem id="configuration_root"
               name="Configurations"
               parent="my_clinic_root"
               sequence="50"/>
 
+<!--    <menuitem id="prescription_medication"-->
+<!--              name="Prescription Medication"-->
+<!--              parent="configuration_root"-->
+<!--              action="prescription_medication_action"-->
+<!--              sequence="13"/>-->
+
     <menuitem id="Appointment_type"
               name="Appointment Type"
               parent="configuration_root"
               action="appointment_type_action"
-              sequence="13"/>
+              sequence="14"/>
+
+     <menuitem id="my_clinic_medication"
+              name="Medications"
+              parent="configuration_root"
+              action="medication_action"
+              sequence="12"/>
+
 
 </odoo>
