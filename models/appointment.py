@@ -34,8 +34,6 @@ class Appointment(models.Model):
     patient_id = fields.Many2one('clinic.patient', string="Patient")
     appointment_type_id = fields.Many2one('clinic.appointmenttype', string="Appointment Type", required=True)
     prescription_id = fields.Many2one('clinic.prescription', string="Prescription")
-    # medication_ids = fields.Many2many('clinic.medication', 'appointment_medication_rel', 'appointment_id',
-    #                                   'medication_id', string='My Medications')
     medication_Prescrption_ids = fields.One2many('clinic.medicationpresc', 'appointment_id', String='Prescription')
     labtest_ids = fields.Many2many('clinic.labtest', 'appointment_labtest_rel', 'appointment_id',
                                       'labtest_id', string='My Labtests')
