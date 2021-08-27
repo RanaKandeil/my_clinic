@@ -29,12 +29,20 @@
                             <field name="phoneNumber" />
                         </group>
                         <group>
-                            <field name="gender" />
-                            <field name="note" />
+                            <field name="maretial_status" />
+                            <field name="smoking" />
+                            <field name="profession" />
                         </group>
                          <group>
                             <field name="bloodType" />
                             <field name="RH" />
+                            <field name="note" />
+                        </group>
+
+                        <group string = "Referal" bg_color="bg-danger">
+                            <field name="referal_patients_id" />
+                            <field name="referal_drs_id" />
+                            <field name="referal_ads" />
                         </group>
                     </group>
                     <notebook>

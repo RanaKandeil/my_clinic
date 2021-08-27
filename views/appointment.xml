@@ -78,22 +78,27 @@
                 </header>
                 <sheet>
                     <group>
-                        <group>
+                        <group string="Appointment Details">
                             <field name="id"/>
-                             <field name="company_id" />
-                            <field name="patient_id"/>
+                            <field name="company_id" />
                             <field name="appointmentDate" />
-                            <field name="patientStatus"/>
-                            <field name="urgencyLevel"/>
+                            <field name="appointment_type_id"/>
+                           <field name="price"/>
                         </group>
-                         <group>
+                         <group string="Patient Details">
+                             <field name="patient_id"/>
+                             <field name="patientTemp"/>
+                             <field name="patientStatus"/>
+                             <field name="urgencyLevel"/>
+                             <field name="weight"/>
+                             <field name="height"/>
+                             <field name="bmi"/>
+                        </group>
+                         <group string="Diagnosis">
+                            <field name="patient_history_list" widget="many2many_tags"/>
                             <field name="diagnosis_html" widget="html"  options='{"safe": True}'/>
                         </group>
-                        <group>
-                            <field name="patientTemp"/>
-                            <field name="appointment_type_id"/>
-                            <field name="price"/>
-                        </group>
+
 
                     </group>
                     <notebook>

@@ -12,7 +12,9 @@ class Appointment(models.Model):
         ('outpatient', 'OutPatient'),
         ('inpatient', 'InPatient'),
     ], string='Status', required=True, default='ambulatory')
-
+    weight = fields.Integer(string="Weight in kg")
+    height = fields.Integer(string='Height in cm')
+    bmi = fields.Integer(string="BMI" )
     urgencyLevel = fields.Selection([
         ('normal', 'Normal'),
         ('urgent', 'Urgent'),
@@ -32,20 +34,30 @@ class Appointment(models.Model):
     patient_id = fields.Many2one('clinic.patient', string="Patient")
     appointment_type_id = fields.Many2one('clinic.appointmenttype', string="Appointment Type", required=True)
     prescription_id = fields.Many2one('clinic.prescription', string="Prescription")
-    medication_ids = fields.Many2many('clinic.medication', 'appointment_medication_rel', 'appointment_id',
-                                      'medication_id', string='My Medications')
-    # medication_Prescrption_ids = fields.Many2many('clinic.medicationpresc', 'appointment_med_presc_rel', 'appointment_id',
-    #                                   'medication_presc_id', string='My Prescription')
+    # medication_ids = fields.Many2many('clinic.medication', 'appointment_medication_rel', 'appointment_id',
+    #                                   'medication_id', string='My Medications')
     medication_Prescrption_ids = fields.One2many('clinic.medicationpresc', 'appointment_id', String='Prescription')
     labtest_ids = fields.Many2many('clinic.labtest', 'appointment_labtest_rel', 'appointment_id',
                                       'labtest_id', string='My Labtests')
     labtest_results = fields.Char(string='Labtests Results')
     imaging_ids = fields.Many2many('clinic.imaging', 'appointment_imaging_rel', 'appointment_id',
                                    'imaging_id', string='My Imaging')
+    # consumption_ids = fields.Many2many('clinic.imaging', 'appointment_imaging_rel', 'appointment_id',
+    #                                'imaging_id', string='My Imaging')
     imaging_results = fields.Char(string='Imaging Results')
 
     diagnosis_html = fields.Text('Diagnosis', help="Rich-text/HTML message")
     company_id = fields.Many2one('res.company', required=True, default=lambda self: self.env.company , readonly=True)
+    patient_history_list = fields.Many2many('clinic.patienthistory', 'appointment_history_rel', 'appointment_id',
+                                   'patient_history_id', string='History')
+
+    @api.onchange('weight','height')
+    def onchange_weight(self):
+        if self.weight > 0 and self.height > 0:
+            if self.height > 0:
+                self.bmi = (self.weight * 10000) / (self.height * self.height)
+        else:
+            self.bmi = 0
 
     @api.onchange('prescription_id')
     def onchange_prescription_id(self):
@@ -79,4 +91,8 @@ class Appointment(models.Model):
         self.price = 0
         self.state = 'cancel'
 
-   
+class PatientHistory(models.Model):
+    _name = "clinic.patienthistory"
+    _description = "patienthistory"
+
+    name = fields.Char(string="Patient History")

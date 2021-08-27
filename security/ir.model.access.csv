@@ -12,3 +12,5 @@ access_clinic_concentration,access.clinic.concentration,model_clinic_concentrati
 access_clinic_dosageform,access.clinic.dosageform,model_clinic_dosageform,,1,1,1,1
 access_clinic_frequency,access.clinic.frequency,model_clinic_frequency,,1,1,1,1
 access_clinic_duration,access.clinic.duration,model_clinic_duration,,1,1,1,1
+access_clinic_hospital,access.clinic.hospital,model_clinic_hospital,,1,1,1,1
+access_clinic_patienthistory,access.clinic.patienthistory,model_clinic_patienthistory,,1,1,1,1

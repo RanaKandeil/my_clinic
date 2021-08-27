@@ -1,4 +1,5 @@
 from odoo import api, fields, models
+from datetime import date, datetime
 
 class ClinicPatient(models.Model):
     _name = "hospital.patient"
@@ -10,7 +11,22 @@ class ClinicPatient(models.Model):
     _description = "Clinic Patient"
 
     name = fields.Char(string='Name', required=True)
-    age = fields.Integer(string='Age')
+    age = fields.Char(string='Age')
+    maretial_status = fields.Selection([
+        ('single', 'Single'),
+        ('married', 'Married'),
+        ('divorced', 'Divorced'),
+        ('widow', 'Widow'),
+    ], default='single')
+    smoking = fields.Boolean(string="Smoking",default=False)
+    profession = fields.Char(string="Profession")
+    referal_ads = fields.Selection([
+        ('fb', 'Facebook'),
+        ('instgram', 'Instgram'),
+        ('google', 'Google'),
+    ])
+    referal_drs_id = fields.Many2one('clinic.referaldoctors', string="Referal Doctors")
+    referal_patients_id = fields.Many2one('clinic.patient', string="Referal Patients")
     gender = fields.Selection([
         ('male', 'Male'),
         ('female', 'Female'),
@@ -27,3 +43,12 @@ class ClinicPatient(models.Model):
 
     note = fields.Text(string='Notes')
     appointment_ids = fields.One2many('clinic.appointment','patient_id',string='My Appointments')
+
+    @api.onchange('dateOfBirth')
+    def onchange_dateOfBirth(self):
+        if self.dateOfBirth:
+            self.age = date.today().year - self.dateOfBirth.year
+        else:
+            self.age = 0
+
+

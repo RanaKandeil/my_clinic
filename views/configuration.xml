@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <tree editable="bottom">
                 <field name="name" />
+                <field name="hospital" />
                 <field name="price"/>
             </tree>
         </field>
@@ -53,6 +54,16 @@
                     </group>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+    <record id="hospital_form" model="ir.ui.view">
+        <field name="name">clinic.hospital.form</field>
+        <field name="model">clinic.hospital</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+            </tree>
         </field>
     </record>
 
@@ -104,6 +115,18 @@
         </field>
     </record>
 
+     <record id="hospital_action" model="ir.actions.act_window">
+        <field name="name">Hospital</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clinic.hospital</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Hospital
+            </p>
+        </field>
+    </record>
+
      <record id="prescription_medication_action" model="ir.actions.act_window">
         <field name="name">Prescription Mediacation</field>
         <field name="type">ir.actions.act_window</field>
@@ -123,11 +146,11 @@
               parent="my_clinic_root"
               sequence="50"/>
 
-<!--    <menuitem id="prescription_medication"-->
-<!--              name="Prescription Medication"-->
-<!--              parent="configuration_root"-->
-<!--              action="prescription_medication_action"-->
-<!--              sequence="13"/>-->
+    <menuitem id="hospital"
+              name="Hospital"
+              parent="configuration_root"
+              action="hospital_action"
+              sequence="13"/>
 
     <menuitem id="Appointment_type"
               name="Appointment Type"
