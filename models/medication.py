@@ -21,6 +21,8 @@ class Prescription(models.Model):
     name = fields.Char(string="Prescription name", required=True)
     presc_med_ids = fields.One2many('clinic.medicationpresc', 'prescription_id', string='Prescription Medications')
 
+
+
 class AppointmentPrescription(models.Model):
     _name = "clinic.medicationpresc"
     _description = "Appointment Prescription"

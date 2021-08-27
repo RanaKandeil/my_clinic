@@ -14,3 +14,8 @@ access_clinic_frequency,access.clinic.frequency,model_clinic_frequency,,1,1,1,1
 access_clinic_duration,access.clinic.duration,model_clinic_duration,,1,1,1,1
 access_clinic_hospital,access.clinic.hospital,model_clinic_hospital,,1,1,1,1
 access_clinic_patienthistory,access.clinic.patienthistory,model_clinic_patienthistory,,1,1,1,1
+access_clinic_consumables,access.clinic.consumables,model_clinic_consumables,,1,1,1,1
+access_clinic_appointmentconsumable,access.clinic.appointmentconsumable,model_clinic_appointmentconsumable,,1,1,1,1
+access_clinic_insurance,access.clinic.insurance,model_clinic_insurance,,1,1,1,1
+access_clinic_diagnosis,access.clinic.diagnosis,model_clinic_diagnosis,,1,1,1,1
+access_clinic_reqsurgery,access.clinic.reqsurgery,model_clinic_reqsurgery,,1,1,1,1

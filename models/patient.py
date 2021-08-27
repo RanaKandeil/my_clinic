@@ -12,21 +12,21 @@ class ClinicPatient(models.Model):
 
     name = fields.Char(string='Name', required=True)
     age = fields.Char(string='Age')
-    maretial_status = fields.Selection([
+    marital_status = fields.Selection([
         ('single', 'Single'),
         ('married', 'Married'),
         ('divorced', 'Divorced'),
         ('widow', 'Widow'),
-    ], default='single')
+    ], default='single',string="Marital Status")
     smoking = fields.Boolean(string="Smoking",default=False)
     profession = fields.Char(string="Profession")
-    referal_ads = fields.Selection([
+    referral_ads = fields.Selection([
         ('fb', 'Facebook'),
         ('instgram', 'Instgram'),
         ('google', 'Google'),
     ])
-    referal_drs_id = fields.Many2one('clinic.referaldoctors', string="Referal Doctors")
-    referal_patients_id = fields.Many2one('clinic.patient', string="Referal Patients")
+    referral_drs_id = fields.Many2one('clinic.referraldoctors', string="Referral Doctors")
+    referral_patients_id = fields.Many2one('clinic.patient', string="Referral Patients")
     gender = fields.Selection([
         ('male', 'Male'),
         ('female', 'Female'),

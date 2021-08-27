@@ -7,6 +7,7 @@ class Appointment(models.Model):
 
     today = fields.Datetime.now()
     appointmentDate = fields.Datetime(string='Appointment Date', required=True)
+    arrivaltime = fields.Datetime(string='Arrival Time')
     patientStatus = fields.Selection([
         ('ambulatory', 'Ambulatory'),
         ('outpatient', 'OutPatient'),
@@ -32,22 +33,34 @@ class Appointment(models.Model):
     observation = fields.Char(string="Observation")
     price = fields.Float(string="Price")
     patient_id = fields.Many2one('clinic.patient', string="Patient")
+    insurance_id = fields.Many2one('clinic.insurance', string="Insurance")
     appointment_type_id = fields.Many2one('clinic.appointmenttype', string="Appointment Type", required=True)
     prescription_id = fields.Many2one('clinic.prescription', string="Prescription")
     medication_Prescrption_ids = fields.One2many('clinic.medicationpresc', 'appointment_id', String='Prescription')
+    consumable_ids = fields.One2many('clinic.appointmentconsumable', 'appointment_id', String='Consumable')
     labtest_ids = fields.Many2many('clinic.labtest', 'appointment_labtest_rel', 'appointment_id',
                                       'labtest_id', string='My Labtests')
     labtest_results = fields.Char(string='Labtests Results')
     imaging_ids = fields.Many2many('clinic.imaging', 'appointment_imaging_rel', 'appointment_id',
                                    'imaging_id', string='My Imaging')
-    # consumption_ids = fields.Many2many('clinic.imaging', 'appointment_imaging_rel', 'appointment_id',
-    #                                'imaging_id', string='My Imaging')
     imaging_results = fields.Char(string='Imaging Results')
-
-    diagnosis_html = fields.Text('Diagnosis', help="Rich-text/HTML message")
+    required_surgery_ids = fields.Many2many('clinic.reqsurgery', 'appointment_reqsurgery_rel', 'appointment_id',
+                                   'reqsurgery_id', string='Required Surgery')
+    notes_html = fields.Text('Notes', help="Rich-text/HTML message")
     company_id = fields.Many2one('res.company', required=True, default=lambda self: self.env.company , readonly=True)
     patient_history_list = fields.Many2many('clinic.patienthistory', 'appointment_history_rel', 'appointment_id',
-                                   'patient_history_id', string='History')
+                                   'patient_history_id', string='Patient History')
+    diagnosis_list = fields.Many2many('clinic.diagnosis', 'appointment_diagnosis_rel', 'appointment_id',
+                                            'diagnosis_id', string='Diagnosis')
+
+    @api.onchange('appointmentDate', 'arrivaltime')
+    def onchange_appointment_date(self):
+        if self.arrivaltime and self.appointmentDate:
+            if self.arrivaltime < self.appointmentDate:
+                raise ValidationError(
+                    _('Arrival time should be greater than appointment Date !'))
+
+
 
     @api.onchange('weight','height')
     def onchange_weight(self):
@@ -94,3 +107,9 @@ class PatientHistory(models.Model):
     _description = "patienthistory"
 
     name = fields.Char(string="Patient History")
+
+class Diagnosis(models.Model):
+    _name = "clinic.diagnosis"
+    _description = "diagnosis"
+
+    name = fields.Char(string="Diagnosis")

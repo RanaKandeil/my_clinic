@@ -63,24 +63,25 @@
                             </div>
                         </div>
                      </div>
-
-                    <div class="text-center" style="margin-bottom:1em;">
-                        <p style="color:#6082B6; font-size:17px"><strong> التشخيص</strong></p>
-                     </div>
-                     <div class="text-center border">
+                     <t t-if="o.notes_html">
+                        <div class="text-center" style="margin-bottom:1em;">
+                            <p style="color:#6082B6; font-size:17px"><strong> ملاحظات </strong></p>
+                         </div>
+                         <div class="text-center border">
                                     <div class="text-center" style="margin:1em;">
 
                                                <div class="row" style="margin:.5em;">
                                                 <div class="col-12 text-left">
-                                                     <span style="color:#6c757d; font-size:15px" t-raw="o.diagnosis_html"/>
+                                                     <span style="color:#6c757d; font-size:15px" t-raw="o.notes_html"/>
                                                 </div>
 
                                             </div>
 
                                        </div>
                                     </div>
+                     </t>
                     <t t-if="o.medication_Prescrption_ids">
-                         <div class="text-center" style="margin-bottom:1em;margin-top:1em;">
+                     <div class="text-center" style="margin-bottom:1em;margin-top:1em;">
                         <p style="color:#6082B6; font-size:17px"><strong>الروشتة الطبية</strong></p>
                      </div>
                     <div class="text-center border" style="margin:1em;">

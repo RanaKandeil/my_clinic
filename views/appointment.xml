@@ -9,6 +9,7 @@
                 <field name="patient_id"/>
                 <field name="id"/>
                 <field name="state"/>
+                <field name="appointment_type_id"/>
                 <field name="price" sum="Total of price"/>
                 <field name="appointmentDate"/>
                 <field name="patientStatus"/>
@@ -93,8 +94,10 @@
                             <field name="id"/>
                             <field name="company_id" />
                             <field name="appointmentDate" />
+                            <field name="arrivaltime" />
                             <field name="appointment_type_id"/>
-                           <field name="price"/>
+                            <field name="price"/>
+                            <field name="insurance_id"/>
                         </group>
                          <group string="Patient Details">
                              <field name="patient_id"/>
@@ -107,7 +110,8 @@
                         </group>
                          <group string="Diagnosis">
                             <field name="patient_history_list" widget="many2many_tags"/>
-                            <field name="diagnosis_html" widget="html"  options='{"safe": True}'/>
+                            <field name="diagnosis_list" widget="many2many_tags"/>
+                            <field name="notes_html" widget="html"  options='{"safe": True}'/>
                         </group>
 
 
@@ -131,6 +135,16 @@
                             </group>
 
                         </page>
+                        <page string="Consumables" name="Consumables">
+                            <group>
+                                 <field name="consumable_ids"  >
+                                     <tree editable="bottom">
+                                         <field name="consumable_id"/>
+                                         <field name="quantity"/>
+                                     </tree>
+                                 </field>
+                            </group>
+                        </page>
                         <page string="Labtests" name="Labtests">
                             <group>
                                  <field name="labtest_ids"></field>
@@ -141,6 +155,16 @@
                             <group>
                                  <field name="imaging_ids"></field>
                                 <field name="imaging_results" />
+                            </group>
+                        </page>
+                        <page string="Required Surgery" name="Required surgery">
+                            <group>
+                                 <field name="required_surgery_ids">
+                                    <tree editable="bottom">
+                                         <field name="name"/>
+                                     </tree>
+                                 </field>
+
                             </group>
                         </page>
 
@@ -174,7 +198,7 @@
         <field name="name">Appointments</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">clinic.appointment</field>
-        <field name="view_mode">tree,calendar,form,pivot</field>
+        <field name="view_mode">tree,calendar,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create your first appointment

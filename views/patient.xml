@@ -29,7 +29,7 @@
                             <field name="phoneNumber" />
                         </group>
                         <group>
-                            <field name="maretial_status" />
+                            <field name="marital_status" />
                             <field name="smoking" />
                             <field name="profession" />
                         </group>
@@ -39,10 +39,10 @@
                             <field name="note" />
                         </group>
 
-                        <group string = "Referal" bg_color="bg-danger">
-                            <field name="referal_patients_id" />
-                            <field name="referal_drs_id" />
-                            <field name="referal_ads" />
+                        <group string = "Referral" bg_color="bg-danger">
+                            <field name="referral_patients_id" />
+                            <field name="referral_drs_id" />
+                            <field name="referral_ads" />
                         </group>
                     </group>
                     <notebook>

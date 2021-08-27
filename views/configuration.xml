@@ -67,6 +67,25 @@
         </field>
     </record>
 
+     <record id="insurance_form" model="ir.ui.view">
+        <field name="name">clinic.insurance.form</field>
+        <field name="model">clinic.insurance</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="surgery_form" model="ir.ui.view">
+        <field name="name">clinic.reqsurgery.form</field>
+        <field name="model">clinic.reqsurgery</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
 <!--      <record id="medication_prescription_tree" model="ir.ui.view">-->
 <!--        <field name="name">clinic.medication.tree</field>-->
 <!--        <field name="model">clinic.medicationpresc</field>-->
@@ -127,6 +146,30 @@
         </field>
     </record>
 
+    <record id="insurance_action" model="ir.actions.act_window">
+        <field name="name">Insurance</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clinic.insurance</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Insurance
+            </p>
+        </field>
+    </record>
+
+    <record id="surgery_action" model="ir.actions.act_window">
+        <field name="name">Surgery</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clinic.reqsurgery</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Surgery
+            </p>
+        </field>
+    </record>
+
      <record id="prescription_medication_action" model="ir.actions.act_window">
         <field name="name">Prescription Mediacation</field>
         <field name="type">ir.actions.act_window</field>
@@ -151,6 +194,18 @@
               parent="configuration_root"
               action="hospital_action"
               sequence="13"/>
+
+    <menuitem id="surgery"
+              name="Surgery"
+              parent="configuration_root"
+              action="surgery_action"
+              sequence="21"/>
+
+    <menuitem id="insurance"
+              name="Insurance"
+              parent="configuration_root"
+              action="insurance_action"
+              sequence="20"/>
 
     <menuitem id="Appointment_type"
               name="Appointment Type"
