@@ -52,6 +52,26 @@ class Appointment(models.Model):
                                    'patient_history_id', string='Patient History')
     diagnosis_list = fields.Many2many('clinic.diagnosis', 'appointment_diagnosis_rel', 'appointment_id',
                                             'diagnosis_id', string='Diagnosis')
+    services = fields.Char(string="Services",default="")
+
+    @api.onchange('prescription_id','imaging_ids','consumable_ids','labtest_ids','required_surgery_ids')
+    def onchange_fields(self):
+        self.services = ''
+        if len(self.prescription_id) > 0:
+            self.medication_Prescrption_ids = self.prescription_id.presc_med_ids
+            if len(self.medication_Prescrption_ids) > 0:
+                self.services += ' P '
+        else:
+            self.medication_Prescrption_ids = None
+        if len(self.consumable_ids) > 0:
+            self.services += ' C '
+        if len(self.labtest_ids) > 0:
+            self.services += ' L '
+        if len(self.imaging_ids) > 0:
+            self.services += ' I '
+        if len(self.required_surgery_ids) > 0:
+            self.services += ' RS '
+
 
     @api.onchange('appointmentDate', 'arrivaltime')
     def onchange_appointment_date(self):
@@ -69,13 +89,16 @@ class Appointment(models.Model):
                 self.bmi = (self.weight * 10000) / (self.height * self.height)
         else:
             self.bmi = 0
-
-    @api.onchange('prescription_id')
-    def onchange_prescription_id(self):
-        if self.prescription_id:
-            self.medication_Prescrption_ids = self.prescription_id.presc_med_ids
-        else:
-            self.medication_Prescrption_ids = None
+    #
+    # @api.onchange('prescription_id')
+    # def onchange_prescription_id(self):
+    #     if self.prescription_id:
+    #         self.medication_Prescrption_ids = self.prescription_id.presc_med_ids
+    #         # if len(self.medication_Prescrption_ids) > 0:
+    #         #     if self.services.find('P') == -1:
+    #         #         self.services += 'P'
+    #     else:
+    #         self.medication_Prescrption_ids = None
 
     @api.onchange('appointment_type_id')
     def onchange_appointment_type_id(self):
@@ -113,3 +136,23 @@ class Diagnosis(models.Model):
     _description = "diagnosis"
 
     name = fields.Char(string="Diagnosis")
+
+    # def write(self, vals):
+    #     if len(self.medication_Prescrption_ids) > 0:
+    #         vals.update({'services': 'P'})
+    #     if len(self.consumable_ids) > 0:
+    #         if vals['services']:
+    #             vals.update({'services': vals['services'] + ', C'})
+    #         else:
+    #             vals.update({'services': 'C'})
+    #     if len(self.labtest_ids) > 0:
+    #         if vals['services']:
+    #             vals.update({'services': vals['services'] + ', L'})
+    #         else:
+    #             vals.update({'services': 'L'})
+    #     if len(self.imaging_ids) > 0:
+    #         if vals['services']:
+    #             vals.update({'services': vals['services'] + ', I'})
+    #         else:
+    #             vals.update({'services': 'I'})
+    #     return super(Appointment, self).write(vals)

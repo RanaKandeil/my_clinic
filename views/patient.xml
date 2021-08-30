@@ -5,8 +5,9 @@
         <field name="name">clinic.patient.tree</field>
         <field name="model">clinic.patient</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree  decoration-warning="behavior == 'trouble_maker'" decoration-danger="behavior == 'blocked'" decoration-bf="behavior in ('blocked','trouble_maker')">
                 <field name="name" />
+                <field name="behavior" />
                 <field name="age" />
                 <field name="gender" />
             </tree>
@@ -32,6 +33,7 @@
                             <field name="marital_status" />
                             <field name="smoking" />
                             <field name="profession" />
+                            <field name="behavior" />
                         </group>
                          <group>
                             <field name="bloodType" />

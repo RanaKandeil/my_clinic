@@ -42,15 +42,15 @@
         </field>
     </record>
     <!-- Top menu item -->
-    <menuitem id="my_clinic_labtest_root"
-              name="Labtest"
-              parent="my_clinic_root"
-              sequence="20"/>
+<!--    <menuitem id="my_clinic_labtest_root"-->
+<!--              name="Labtest"-->
+<!--              parent="my_clinic_root"-->
+<!--              sequence="20"/>-->
 
     <menuitem id="my_clinic_labtest"
               name="Labtest"
-              parent="my_clinic_labtest_root"
+              parent="prescription_root"
               action="labtest_action"
-              sequence="10"/>
+              sequence="20"/>
 
 </odoo>

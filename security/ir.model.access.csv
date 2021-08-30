@@ -2,8 +2,8 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_hospital_patient,access.hospital.patient,model_hospital_patient,,1,1,1,1
 access_clinic_patient,access.clinic.patient,model_clinic_patient,,1,1,1,1
 access_clinic_appointment,access.clinic.appointment,model_clinic_appointment,,1,1,1,1
-access_clinic_medication,access.clinic.medication,model_clinic_medication,,1,1,1,1
-access_clinic_prescription,access.clinic.prescription,model_clinic_prescription,,1,1,1,1
+access_clinic_medication,access.clinic.medication,model_clinic_medication,my_clinic.group_clinic_doctor,1,1,1,1
+access_clinic_prescription,access.clinic.prescription,model_clinic_prescription,my_clinic.group_clinic_doctor,1,1,1,1
 access_clinic_appointmenttype,access.clinic.appointmenttype,model_clinic_appointmenttype,,1,1,1,1
 access_clinic_imaging,access.clinic.imaging,model_clinic_imaging,,1,1,1,1
 access_clinic_labtest,access.clinic.labtest,model_clinic_labtest,,1,1,1,1
@@ -19,3 +19,4 @@ access_clinic_appointmentconsumable,access.clinic.appointmentconsumable,model_cl
 access_clinic_insurance,access.clinic.insurance,model_clinic_insurance,,1,1,1,1
 access_clinic_diagnosis,access.clinic.diagnosis,model_clinic_diagnosis,,1,1,1,1
 access_clinic_reqsurgery,access.clinic.reqsurgery,model_clinic_reqsurgery,,1,1,1,1
+access_clinic_referraldoctors,access.clinic.referraldoctors,model_clinic_referraldoctors,,1,1,1,1

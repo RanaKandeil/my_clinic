@@ -10,6 +10,7 @@
                 <field name="id"/>
                 <field name="state"/>
                 <field name="appointment_type_id"/>
+                <field name="services" decoration-info="True" decoration-bf="True"/>
                 <field name="price" sum="Total of price"/>
                 <field name="appointmentDate"/>
                 <field name="patientStatus"/>
@@ -51,6 +52,16 @@
             </field>
     </record>
 
+      <record id="view_medication_pivot" model="ir.ui.view">
+            <field name="name">clinic.medication.pivot</field>
+            <field name="model">clinic.medicationpresc</field>
+            <field name="arch" type="xml">
+                <pivot string="Medication Analysis" sample="1">
+                    <field name="medicament_id" />
+
+                </pivot>
+            </field>
+    </record>
     <record id="medication_form" model="ir.ui.view">
         <field name="name">clinic.medication.form</field>
         <field name="model">clinic.medication</field>
@@ -107,8 +118,9 @@
                              <field name="weight"/>
                              <field name="height"/>
                              <field name="bmi"/>
+                             <field name="services" />
                         </group>
-                         <group string="Diagnosis">
+                         <group string="Diagnosis" groups="my_clinic.group_clinic_doctor">
                             <field name="patient_history_list" widget="many2many_tags"/>
                             <field name="diagnosis_list" widget="many2many_tags"/>
                             <field name="notes_html" widget="html"  options='{"safe": True}'/>
@@ -116,7 +128,7 @@
 
 
                     </group>
-                    <notebook>
+                    <notebook groups="my_clinic.group_clinic_doctor">
                           <page string="Prescription" name="Prescription">
                             <group>
                                 <field name="prescription_id"></field>
@@ -164,10 +176,8 @@
                                          <field name="name"/>
                                      </tree>
                                  </field>
-
                             </group>
                         </page>
-
                     </notebook>
                 </sheet>
             </form>
@@ -213,16 +223,25 @@
         <field name="view_mode">graph</field>
     </record>
 
-        <record id="appointment_pivot_action" model="ir.actions.act_window">
+    <record id="appointment_pivot_action" model="ir.actions.act_window">
         <field name="name">Appointment Analysis</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">clinic.appointment</field>
         <field name="view_mode">pivot</field>
     </record>
+
+    <record id="medication_pivot_action" model="ir.actions.act_window">
+        <field name="name">Medication Analysis</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clinic.medicationpresc</field>
+        <field name="view_mode">pivot</field>
+    </record>
+
     <!-- Top menu item -->
     <menuitem id="my_clinic_appointment_graph_root"
               name="Doctor"
               parent="my_clinic_root"
+              groups="my_clinic.group_clinic_doctor"
               sequence="40"/>
 
     <menuitem id="my_clinic_appointment-graph"
@@ -237,6 +256,11 @@
               action="appointment_pivot_action"
               sequence="11"/>
 
+    <menuitem id="my_clinic_medication-pivot"
+              name="Medication Pivot Analysis"
+              parent="my_clinic_appointment_graph_root"
+              action="medication_pivot_action"
+              sequence="15"/>
     <menuitem id="my_clinic_appointment_root"
               name="Appointments"
               parent="my_clinic_root"

@@ -34,7 +34,7 @@ class ReferralDoctors(models.Model):
     _name = "clinic.referraldoctors"
     _description = "Referral Doctors"
 
-    doctor_name = fields.Char(string="Doctor Name", required=True)
+    name = fields.Char(string="Doctor Name", required=True)
 
 class ConsumableProduct(models.Model):
     _name = "clinic.consumables"
@@ -61,7 +61,7 @@ class AppointmentConsumables(models.Model):
     _name = "clinic.appointmentconsumable"
     _description = "Consumables"
 
-    consumable_id = fields.Many2one('clinic.consumables', string="Consumable")
+    consumable_id = fields.Many2one('clinic.consumables', string="Consumable",required=True)
     appointment_id = fields.Many2one('clinic.appointment', String="Appointment Id")
     quantity = fields.Integer(string='Quantity', required=True)
 

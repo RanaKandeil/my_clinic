@@ -46,15 +46,15 @@
         </field>
     </record>
     <!-- Top menu item -->
-    <menuitem id="my_clinic_imaging_root"
-              name="Imaging"
-              parent="my_clinic_root"
-              sequence="21"/>
+<!--    <menuitem id="my_clinic_imaging_root"-->
+<!--              name="Imaging"-->
+<!--              parent="my_clinic_root"-->
+<!--              sequence="21"/>-->
 
     <menuitem id="my_clinic_imaging"
               name="Imaging"
-              parent="my_clinic_imaging_root"
+              parent="prescription_root"
               action="imaging_action"
-              sequence="10"/>
+              sequence="21"/>
 
 </odoo>

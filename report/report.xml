@@ -19,6 +19,7 @@
     </record>
 
 <report id="print_report_patient"
+            groups="my_clinic.group_clinic_doctor"
             string="الروشتات" model="clinic.appointment"
             report_type="qweb-pdf"
             name="my_clinic.print_report_patient"

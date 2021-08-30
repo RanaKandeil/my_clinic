@@ -37,6 +37,11 @@ class ClinicPatient(models.Model):
         ('positive', '+ve'),
         ('negative', '-ve'),
     ])
+    behavior = fields.Selection([
+        ('good', 'Good'),
+        ('trouble_maker', 'Trouble Maker'),
+        ('blocked', 'Blocked'),
+    ], default='good')
     insurance = fields.Char(string="Insurance")
     address = fields.Char(string="Address")
     phoneNumber = fields.Char(string='Phone Number', required=True)
