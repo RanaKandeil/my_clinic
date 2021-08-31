@@ -2,4 +2,217 @@
 <odoo>
 
 
+    <template id="print_report_appointment">
+           <t t-call="web.basic_layout">
+                <div class="page" style="margin-top:0px;">
+                <t t-foreach="docs" t-as="o">
+                    <div class="row" >
+                        <div class="col-6 text-left">
+                            <span style="color:#6082B6; font-size:30px;" ><strong>Prescription </strong></span>
+                        </div>
+                        <div class="col-4">
+                        </div>
+                        <div class="col-2">
+                              <img  class="img-thumbnail" t-att-src="image_data_uri(o.company_id.logo)"/>
+                        </div>
+                    </div>
+
+                    <div class="row " style="margin-top:1em;margin-bottom:1em;">
+                        <div class="col-4 text-left">
+                            <ul class="list-inline ">
+                              <li class="list-inline-item " style="color:#6082B6; font-size:17px;" ><strong>Date</strong>  </li>
+                              <li class="list-inline-item "><span style="color:#6c757d; font-size:15px" t-field="o.appointmentDate"/></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row " style="margin-top:1em;margin-bottom:1em;">
+                        <div class="col-4 text-left">
+                            <ul class="list-inline ">
+                              <li class="list-inline-item " style="color:#6082B6; font-size:17px;" ><strong> Patient ID</strong>  </li>
+                              <li class="list-inline-item "><span style="color:#6c757d; font-size:15px" t-field="o.patient_id.id"/></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                     <div class="text-center border" style="margin-bottom:1em;">
+                        <div class="row" style="margin:1em;">
+                            <div class="col-4 text-left">
+                                <ul class="list-inline ">
+                                  <li class="list-inline-item " style="color:#6082B6; font-size:17px;" > <strong>Name : </strong> </li>
+                                  <li class="list-inline-item"><span style="color:#6c757d; font-size:15px" t-field="o.patient_id.name"/></li>
+                                </ul>
+                            </div>
+                            <div class="col-4 text-left">
+                                <ul class="list-inline ">
+                                    <li class="list-inline-item " style="color:#6082B6; font-size:17px;" ><strong>Age</strong>   </li>
+                                  <li class="list-inline-item "><span style="color:#6c757d; font-size:15px" t-field="o.patient_id.age"/></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                          <div class="row" style="margin:1em;" >
+
+                            <div class="col-4 text-left">
+                                <ul class="list-inline ">
+                                  <li class="list-inline-item " style="color:#6082B6; font-size:17px;" >  <strong>Gender</strong></li>
+                                  <li class="list-inline-item"><p style="color:#6c757d; font-size:15px" t-field="o.patient_id.gender"></p></li>
+                                </ul>
+                            </div>
+                            <div class="col-4 text-left">
+                                <ul class="list-inline ">
+                                   <li class="list-inline-item " style="color:#6082B6; font-size:17px;" ><strong>Phone</strong>   </li>
+                                   <li class="list-inline-item"><span style="color:#6c757d; font-size:15px" t-field="o.patient_id.phoneNumber"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                     </div>
+                     <t t-if="o.notes_html">
+                        <div class="text-center" style="margin-bottom:1em;">
+                            <p style="color:#6082B6; font-size:25px"><strong> Notes </strong></p>
+                         </div>
+                         <div class="text-center border">
+                            <div class="text-center" style="margin:1em;">
+                                <div class="row" style="margin:.5em;">
+                                        <div class="col-12 text-left">
+                                             <span style="color:#6c757d; font-size:15px" t-raw="o.notes_html"/>
+                                        </div>
+                                </div>
+                            </div>
+                         </div>
+                     </t>
+                    <t t-if="o.medication_Prescrption_ids">
+                     <div class="text-center" style="margin-bottom:1em;margin-top:1em;">
+                        <p style="color:#6082B6; font-size:25px"><strong> Prescription</strong></p>
+                     </div>
+                    <div class="text-center border" style="margin:1em;">
+                    <div class="text-center " style="margin:1em;">
+                               <div class="row" >
+
+                                  <div class="col-2 text-left">
+                                    <span style="color:#6082B6 ;font-size:17px;" ><strong>Medication </strong></span>
+                                </div>
+                                <div class="col-2 text-left">
+                                    <span style="color:#6082B6; font-size:17px;" ><strong> Concentration </strong></span>
+                                </div>
+                                <div class="col-2 text-left">
+                                    <span style="color:#6082B6 ;font-size:17px;" ><strong>Dosage Form</strong></span>
+                                </div>
+                                   <div class="col-2 text-left">
+                                     <span style="color:#6082B6 ;font-size:17px;" ><strong> Frequency </strong></span>
+                                </div>
+                                <div class="col-2 text-left">
+                                     <span style="color:#6082B6 ;font-size:17px;" ><strong> Duration</strong></span>
+                                </div>
+                                <div class="col-2 text-left">
+                                    <span style="color:#6082B6 ;font-size:17px;" ><strong>Notes</strong></span>
+                                </div>
+                            </div>
+
+                       </div>
+                       <div class="text-center" >
+                        <t t-foreach="o.medication_Prescrption_ids" t-as="line">
+                               <div class="row" style="margin:.5em;">
+                                <div class="col-2 text-left">
+                                   <span style="color:#6c757d; font-size:15px" t-field="line.medicament_id.name"/>
+                                </div>
+                                <div class="col-2 text-left">
+                                   <span style="color:#6c757d; font-size:15px" t-field="line.concentration"/>
+                                </div>
+                                <div class="col-2 text-left">
+                                   <span style="color:#6c757d; font-size:15px" t-field="line.doasge_form"/>
+                                </div>
+                                <div class="col-2 text-left">
+                                    <span style="color:#6c757d; font-size:15px" t-field="line.frequency"/>
+                                </div>
+                                <div class="col-2 text-left">
+                                      <span style="color:#6c757d; font-size:15px" t-field="line.duration"/>
+                                </div>
+                                <div class="col-2 text-left">
+                                      <span style="color:#6c757d; font-size:15px" t-field="line.note"/>
+                                </div>
+                            </div>
+                        </t>
+                       </div>
+                    </div>
+
+                    </t>
+
+                <t t-if="o.labtest_ids">
+                 <div class="text-center" style="margin-bottom:1em;margin-top:1em;">
+                        <p style="color:#6082B6; font-size:25px"><strong> Laboratory</strong></p>
+                 </div>
+                <div class="text-center" >
+                     <div class="text-center border" style="margin:1em;">
+                        <t t-foreach="o.labtest_ids" t-as="line">
+                               <div class="row" style="margin:.5em;">
+
+                                <div class="col-6 text-left">
+                                   <span style="color:#6c757d; font-size:15px" t-field="line.name"/>
+                                    <span style="color:#6c757d; font-size:15px" > - </span>
+                                    <span style="color:#6c757d; font-size:15px" t-field="line.code"/>
+                                </div>
+                               </div>
+                        </t>
+                     </div>
+                </div>
+                </t>
+                    <t t-if="o.imaging_ids">
+                     <div class="text-center" style="margin-bottom:1em;margin-top:1em;">
+                        <p style="color:#6082B6; font-size:25px"><strong> Imaging</strong></p>
+                    </div>
+                    <div class="text-center" >
+                 <div class="text-center border" style="margin:1em;">
+                    <t t-foreach="o.imaging_ids" t-as="line">
+                           <div class="row" style="margin:.5em;">
+
+                            <div class="col-6 text-right">
+                               <span style="color:#6c757d; font-size:15px" t-field="line.name"/>
+                                <span style="color:#6c757d; font-size:15px" > - </span>
+                                <span style="color:#6c757d; font-size:15px" t-field="line.code"/>
+                            </div>
+                           </div>
+                        <t t-if="line.prerequisites">
+                         <div class="row" style="margin:.5em;">
+                               <div class="col-6 text-right"></div>
+                            <div class="col-6 text-right">
+                               <span style="color:#6c757d; font-size:15px" t-field="line.prerequisites"/>
+                                <span style="color:#6c757d; font-size:15px" > - </span>
+                                <span style="color:#6082B6; font-size:15px" ><strong>ملاحظات</strong>  </span>
+                            </div>
+                           </div>
+                        </t>
+                    </t>
+                 </div>
+            </div>
+                </t>
+
+                <div class="footer">
+                    <div class="text-left" style="border-top: 1px solid black;">
+                        <ul  class="list-inline">
+                            <li class="text-left list-inline-item" >
+                                <span> Phone  </span>
+                                <span> : </span>
+                                <span t-field="o.company_id.phone"/>
+                            </li>
+
+                            <li class="text-left list-inline-item" style="margin-left:28em">
+                                <span>Address  </span>
+                                <span> : </span>
+                                <span t-field="o.company_id.city"/>
+                                <span> , </span>
+                                <span t-field="o.company_id.street"/>
+                                <span> , </span>
+                                <span t-field="o.company_id.street2"/>
+
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                </t>
+            </div>
+
+           </t>
+        </template>
 </odoo>
+

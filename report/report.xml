@@ -24,5 +24,15 @@
             report_type="qweb-pdf"
             name="my_clinic.print_report_patient"
             file="my_clinic.print_report_patient"
+            print_report_name = "'Prescription - %s' % (object.patient_id.name)"
+            paperformat="paperformat_payslip_group"/>
+
+    <report id="print_report_appointment_eng"
+            groups="my_clinic.group_clinic_doctor"
+            string="Prescription" model="clinic.appointment"
+            report_type="qweb-pdf"
+            name="my_clinic.print_report_appointment"
+            file="my_clinic.print_report_appointment"
+            print_report_name = "'Prescription - %s' % (object.patient_id.name)"
             paperformat="paperformat_payslip_group"/>
 </odoo>
