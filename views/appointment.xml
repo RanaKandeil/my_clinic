@@ -9,6 +9,7 @@
                 <field name="patient_id"/>
                 <field name="id"/>
                 <field name="state"/>
+                <field name="bmi"/>
                 <field name="appointment_type_id"/>
                 <field name="services" decoration-info="True" decoration-bf="True"/>
                 <field name="price" sum="Total of price"/>
@@ -30,6 +31,16 @@
             </field>
         </record>
 
+    <record id="patient_appointment_graph" model="ir.ui.view">
+            <field name="name">clinic.appointment.graph</field>
+            <field name="model">clinic.appointment</field>
+            <field name="arch" type="xml">
+                <graph string="Patient Graph"  type="bar">
+                    <field name="bmi"  type="measure"/>
+                    <field name="appointmentDate" interval="day" type="row"/>
+                </graph>
+            </field>
+    </record>
     <record id="appointment_graph" model="ir.ui.view">
             <field name="name">clinic.appointment.graph</field>
             <field name="model">clinic.appointment</field>

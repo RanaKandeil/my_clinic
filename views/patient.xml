@@ -20,10 +20,15 @@
         <field name="arch" type="xml">
             <form string="Patient">
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="open_patient_graph"  class="oe_stat_button" type="object"
+                                string="Patient BMI" icon="fa-bar-chart-o"></button>
+                    </div>
                     <group>
                         <group>
                             <field name="name" />
                             <field name="age" />
+                            <field name="gender" />
                         </group>
                          <group>
                             <field name="dateOfBirth" />
@@ -49,13 +54,27 @@
                     </group>
                     <notebook>
                         <page string="Appointments" name="Appointments">
-                            <field name="appointment_ids"></field>
+                            <field name="appointment_ids">
+                            </field>
                         </page>
                     </notebook>
                 </sheet>
             </form>
         </field>
     </record>
+
+     <record id="view_patient_graph" model="ir.ui.view">
+            <field name="name">patient.graph</field>
+            <field name="model">clinic.patient</field>
+            <field name="arch" type="xml">
+                <graph string="Patient" sample="1">
+                    <field name="name" />
+<!--                    <field name="unit_amount" type="measure"/>-->
+<!--                    <field name="amount" type="measure"/>-->
+                </graph>
+            </field>
+        </record>
+
 
     <record id="patient_action" model="ir.actions.act_window">
         <field name="name">Patients</field>

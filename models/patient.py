@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import api, fields, models , _
 from datetime import date, datetime
 
 class ClinicPatient(models.Model):
@@ -48,6 +48,21 @@ class ClinicPatient(models.Model):
 
     note = fields.Text(string='Notes')
     appointment_ids = fields.One2many('clinic.appointment','patient_id',string='My Appointments')
+
+
+    def open_patient_graph(self):
+        print(self.name == 'Patient1')
+        print(self.appointment_ids.patient_id.id)
+        return {
+            'name': _('BMI'),
+            'domain': [('patient_id.id', '=', self.id)],
+            'view_type': 'graph',
+            'res_model': 'clinic.appointment',
+            'view_id': self.env.ref('my_clinic.patient_appointment_graph').id,
+            'view_mode': 'graph',
+            'type': 'ir.actions.act_window',
+            # 'context': self.env.context,
+        }
 
     @api.onchange('dateOfBirth')
     def onchange_dateOfBirth(self):
