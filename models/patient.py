@@ -70,5 +70,3 @@ class ClinicPatient(models.Model):
             self.age = date.today().year - self.dateOfBirth.year
         else:
             self.age = 0
-
-

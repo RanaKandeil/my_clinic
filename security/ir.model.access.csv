@@ -20,3 +20,4 @@ access_clinic_insurance,access.clinic.insurance,model_clinic_insurance,,1,1,1,1
 access_clinic_diagnosis,access.clinic.diagnosis,model_clinic_diagnosis,,1,1,1,1
 access_clinic_reqsurgery,access.clinic.reqsurgery,model_clinic_reqsurgery,,1,1,1,1
 access_clinic_referraldoctors,access.clinic.referraldoctors,model_clinic_referraldoctors,,1,1,1,1
+access_group_user,Access User,model_whatsapp_new_message_wizard,base.group_user,1,1,1,1

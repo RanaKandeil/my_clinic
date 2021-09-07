@@ -72,6 +72,15 @@ class Appointment(models.Model):
         if len(self.required_surgery_ids) > 0:
             self.services += ' RS '
 
+    def send_msg(self):
+        return {'type': 'ir.actions.act_window',
+                'name': _('Whatsapp Message'),
+                'res_model': 'whatsapp.new.message.wizard',
+                'target': 'new',
+                'view_mode': 'form',
+                'view_type': 'form',
+                'context': {'default_user_id': self.patient_id.id},
+                }
 
     @api.onchange('appointmentDate', 'arrivaltime')
     def onchange_appointment_date(self):
@@ -130,6 +139,8 @@ class PatientHistory(models.Model):
     _description = "patienthistory"
 
     name = fields.Char(string="Patient History")
+
+
 
 class Diagnosis(models.Model):
     _name = "clinic.diagnosis"

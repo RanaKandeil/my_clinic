@@ -111,6 +111,9 @@
                     <field name="state" widget="statusbar"  statusbar_visible="draft,confirmed,done"/>
                 </header>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="send_msg" string="Whatsapp Message" type="object" class="oe_stat_button" icon="fa-whatsapp"/>
+                    </div>
                     <group>
                         <group string="Appointment Details">
                             <field name="id"/>

@@ -18,6 +18,7 @@
         'views/configuration.xml',
         'views/labtest.xml',
         'views/imaging.xml',
+        'views/whatsapp.xml',
         'report/appointment_prescreption.xml',
         'report/appointment_prescription_arabic.xml',
         'report/report.xml',
