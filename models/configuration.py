@@ -29,41 +29,13 @@ class Insurance(models.Model):
     _description = "Insurance"
 
     name = fields.Char(string="Insurance", required=True)
-
+    price = fields.Char(string="Price",default='50')
 class ReferralDoctors(models.Model):
     _name = "clinic.referraldoctors"
     _description = "Referral Doctors"
 
     name = fields.Char(string="Doctor Name", required=True)
 
-class ConsumableProduct(models.Model):
-    _name = "clinic.consumables"
-    _description = "Consumable"
-
-    name = fields.Char(string="Product Name", required=True)
-    description = fields.Char(string="Product Description", required=True)
-    company = fields.Char(string="Company Name", required=True)
-
-    _sql_constraints = [
-        ('name_unique', 'UNIQUE(name)', 'This product already exists !')
-    ]
-
-    def name_get(self):
-        res = []
-        for rec in self:
-            if rec.name:
-                res.append((rec.id, '%s - %s' % (rec.name, rec.company)))
-            else:
-                res.append((rec.id, '%s - %s' % (rec.name, '')))
-        return res
-
-class AppointmentConsumables(models.Model):
-    _name = "clinic.appointmentconsumable"
-    _description = "Consumables"
-
-    consumable_id = fields.Many2one('clinic.consumables', string="Consumable",required=True)
-    appointment_id = fields.Many2one('clinic.appointment', String="Appointment Id")
-    quantity = fields.Integer(string='Quantity', required=True)
 
 
 class RequiredSurgery(models.Model):
@@ -71,3 +43,15 @@ class RequiredSurgery(models.Model):
     _description = "reqsurgery"
 
     name = fields.Char(string="Surgery Name", required=True)
+
+class Doctor(models.Model):
+    _name = "clinic.doctor"
+    _description = "doctor"
+    _sql_constraints = [('doctor_user_presence_unique', 'unique(user_id)', 'A user can be assigned to one doctor only.')]
+
+    name = fields.Char(string="Doctor Name", required=True)
+    user_id = fields.Many2one('res.users', 'User', required=True, index=True, ondelete='cascade')
+    specialty = fields.Char(string="Specialty")
+    faculty = fields.Char(string="Faculty")
+    masters = fields.Char(string="Masters")
+    PHD = fields.Char(string="PHD")

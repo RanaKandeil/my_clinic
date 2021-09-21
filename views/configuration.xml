@@ -37,6 +37,22 @@
         </field>
     </record>
 
+
+    <record id="medication_tree" model="ir.ui.view">
+        <field name="name">clinic.doctor.tree</field>
+        <field name="model">clinic.doctor</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="specialty"/>
+                <field name="faculty"/>
+                <field name="masters"/>
+                <field name="PHD"/>
+            </tree>
+        </field>
+    </record>
+
     <record id="medication_form" model="ir.ui.view">
         <field name="name">clinic.medication.form</field>
         <field name="model">clinic.medication</field>
@@ -86,41 +102,20 @@
             </tree>
         </field>
     </record>
-<!--      <record id="medication_prescription_tree" model="ir.ui.view">-->
-<!--        <field name="name">clinic.medication.tree</field>-->
-<!--        <field name="model">clinic.medicationpresc</field>-->
+
+<!--    <record id="surgery_form" model="ir.ui.view">-->
+<!--        <field name="name">clinic.consumables.form</field>-->
+<!--        <field name="model">clinic.consumables</field>-->
 <!--        <field name="arch" type="xml">-->
-<!--            <tree>-->
-<!--                <field name="medicament_id"/>-->
-<!--                <field name="concentration"/>-->
-<!--                <field name="doasge_form"/>-->
-<!--                <field name="frequency"/>-->
-<!--                <field name="duration"/>-->
+<!--            <tree editable="bottom">-->
+<!--                <field name="name"/>-->
+<!--                <field name="description"/>-->
+<!--                <field name="company"/>-->
 <!--            </tree>-->
 <!--        </field>-->
 <!--    </record>-->
 
-<!--    <record id="medication_prescription_form" model="ir.ui.view">-->
-<!--        <field name="name">clinic.medicationpresc.form</field>-->
-<!--        <field name="model">clinic.medicationpresc</field>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <form string="Medication Prescription">-->
-<!--                <sheet>-->
-<!--                    <group>-->
-<!--                        <group>-->
-<!--                            <field name="medicament_id"/>-->
-<!--                            <field name="concentration"/>-->
-<!--                        </group>-->
-<!--                        <group>-->
-<!--                           <field name="doasge_form"/>-->
-<!--                            <field name="frequency"/>-->
-<!--                            <field name="duration"/>-->
-<!--                        </group>-->
-<!--                    </group>-->
-<!--                </sheet>-->
-<!--            </form>-->
-<!--        </field>-->
-<!--    </record>-->
+
 
     <record id="medication_action" model="ir.actions.act_window">
         <field name="name">Medications</field>
@@ -146,6 +141,8 @@
         </field>
     </record>
 
+
+
     <record id="insurance_action" model="ir.actions.act_window">
         <field name="name">Insurance</field>
         <field name="type">ir.actions.act_window</field>
@@ -157,6 +154,18 @@
             </p>
         </field>
     </record>
+
+<!--      <record id="consumable_action" model="ir.actions.act_window">-->
+<!--        <field name="name">Consumable</field>-->
+<!--        <field name="type">ir.actions.act_window</field>-->
+<!--        <field name="res_model">clinic.consumables</field>-->
+<!--        <field name="view_mode">tree,form</field>-->
+<!--        <field name="help" type="html">-->
+<!--            <p class="o_view_nocontent_smiling_face">-->
+<!--                Create your first Consumable-->
+<!--            </p>-->
+<!--        </field>-->
+<!--    </record>-->
 
     <record id="surgery_action" model="ir.actions.act_window">
         <field name="name">Surgery</field>
@@ -183,11 +192,29 @@
     </record>
 
 
+    <record id="add_doctor_action" model="ir.actions.act_window">
+        <field name="name">Add New Doctor</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clinic.doctor</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add New Doctor
+            </p>
+        </field>
+    </record>
+
     <!-- Top menu item -->
     <menuitem id="configuration_root"
               name="Configurations"
               parent="my_clinic_root"
               sequence="50"/>
+
+    <menuitem id="Add_doctor"
+              name="Add Doctor"
+              parent="configuration_root"
+              action="add_doctor_action"
+              sequence="1"/>
 
     <menuitem id="hospital"
               name="Hospital"
@@ -206,6 +233,7 @@
               parent="configuration_root"
               action="insurance_action"
               sequence="20"/>
+
 
     <menuitem id="Appointment_type"
               name="Appointment Type"

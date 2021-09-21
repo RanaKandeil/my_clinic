@@ -15,6 +15,7 @@
         'views/patient.xml',
         'views/appointment.xml',
         'views/prescription.xml',
+        'views/product.xml',
         'views/configuration.xml',
         'views/labtest.xml',
         'views/imaging.xml',

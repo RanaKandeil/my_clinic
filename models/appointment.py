@@ -1,6 +1,8 @@
 from odoo import api, fields, models, _, tools
 from odoo.exceptions import UserError, ValidationError
 
+
+
 class Appointment(models.Model):
     _name = "clinic.appointment"
     _description = "Appointment"
@@ -34,10 +36,14 @@ class Appointment(models.Model):
     price = fields.Float(string="Price")
     patient_id = fields.Many2one('clinic.patient', string="Patient")
     insurance_id = fields.Many2one('clinic.insurance', string="Insurance")
+    doctor_id = fields.Many2one('clinic.doctor', string="Doctor")
     appointment_type_id = fields.Many2one('clinic.appointmenttype', string="Appointment Type", required=True)
     prescription_id = fields.Many2one('clinic.prescription', string="Prescription")
     medication_Prescrption_ids = fields.One2many('clinic.medicationpresc', 'appointment_id', String='Prescription')
     consumable_ids = fields.One2many('clinic.appointmentconsumable', 'appointment_id', String='Consumable')
+    inventory_ids = fields.One2many('clinic.appointmentinventory', 'appointment_id', String='Inventory')
+    quantity = fields.Integer(related='inventory_ids.quantity')
+    stock = fields.Integer(related='inventory_ids.stock', readonly=False, store=True)
     labtest_ids = fields.Many2many('clinic.labtest', 'appointment_labtest_rel', 'appointment_id',
                                       'labtest_id', string='My Labtests')
     labtest_results = fields.Char(string='Labtests Results')
@@ -53,6 +59,61 @@ class Appointment(models.Model):
     diagnosis_list = fields.Many2many('clinic.diagnosis', 'appointment_diagnosis_rel', 'appointment_id',
                                             'diagnosis_id', string='Diagnosis')
     services = fields.Char(string="Services",default="")
+    current_user = fields.Many2one('res.users', string='User', default=lambda self: self.env.user)
+
+    def name_get(self):
+        res = []
+        for rec in self:
+            print(rec)
+            if rec != None and rec.id:
+                res.append((rec.id, '%s - %s' % ('Appointment', rec.id)))
+
+        return res
+
+    @api.onchange('inventory_ids')
+    def onchange_inventory_ids(self):
+        if self.inventory_ids:
+            if self.inventory_ids.filtered(lambda i:i.quantity > 0 and i.quantity > i.stock):
+                self.inventory_ids = self.inventory_ids.filtered(lambda i:i.quantity > 0 and i.quantity > i.stock)
+                raise ValidationError(
+                    _('There is not enough stock from this product. Please update your Inventory first'))
+
+    @api.model
+    def create(self, vals):
+        if vals.get('inventory_ids') != None:
+            for i in range(len(vals['inventory_ids'])):
+                #Add Inventory to update the stock
+                if vals['inventory_ids'][i][2] != False and vals['inventory_ids'][i][0] == 0:
+                    vals['inventory_ids'][i][2]['stock'] = vals['inventory_ids'][i][2]['stock'] - vals['inventory_ids'][i][2]['quantity']
+        return super().create(vals)
+
+    def write(self, vals):
+        deletedItems =[]
+        if vals.get('inventory_ids') != None:
+            for i in range(len(vals['inventory_ids'])):
+                #Update  inventory Id is 1
+                if vals['inventory_ids'][i][2] != False and vals['inventory_ids'][i][0] == 1:
+                    self.inventory_ids[i].stock += self.inventory_ids[i].quantity
+                    self.inventory_ids[i].stock = self.inventory_ids[i].stock - vals['inventory_ids'][i][2]['quantity']
+                    vals['inventory_ids'][i] += [{'stock': self.inventory_ids[i].stock}]
+                # ADD inventory Id is 0
+                elif vals['inventory_ids'][i][2] != False and vals['inventory_ids'][i][0] == 0:
+                    vals['inventory_ids'][i][2]['stock'] = vals['inventory_ids'][i][2]['stock'] - vals['inventory_ids'][i][2]['quantity']
+                #Delete inventory Id is 2
+                elif vals['inventory_ids'][i][2] == False and vals['inventory_ids'][i][0] == 2:
+                    # Add deleted items to array then add them at the end to the list
+                    deletedItems.append([1,vals['inventory_ids'][i][1],{'stock': self.inventory_ids[i].quantity + self.inventory_ids[i].stock}])
+                if deletedItems:
+                    for i in range(len(deletedItems)):
+                        vals['inventory_ids'].append(deletedItems[i])
+        return super(Appointment, self).write(vals)
+
+    def unlink(self):
+        if self.inventory_ids != []:
+            if len(self.inventory_ids) > 0:
+                raise ValidationError(
+                    _('Please Delete the inventory first before deleteing the appointment. To Adjust product inventory'))
+        return super(Appointment, self).unlink()
 
     @api.onchange('prescription_id','imaging_ids','consumable_ids','labtest_ids','required_surgery_ids')
     def onchange_fields(self):

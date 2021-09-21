@@ -1,6 +1,6 @@
-from odoo import api, fields, models , _
+from odoo import api, fields, models , _ , SUPERUSER_ID
 from datetime import date, datetime
-
+import json
 class ClinicPatient(models.Model):
     _name = "hospital.patient"
     _description = "Clinic Patient"
@@ -9,6 +9,12 @@ class ClinicPatient(models.Model):
 class ClinicPatient(models.Model):
     _name = "clinic.patient"
     _description = "Clinic Patient"
+
+    @api.model
+    def _default_user(self):
+        print(self.env.user.id)
+        print(self.env.user)
+        return self.env.context.get('user_id', self.env.user.id)
 
     name = fields.Char(string='Name', required=True)
     age = fields.Char(string='Age')
@@ -37,6 +43,7 @@ class ClinicPatient(models.Model):
         ('positive', '+ve'),
         ('negative', '-ve'),
     ])
+
     behavior = fields.Selection([
         ('good', 'Good'),
         ('trouble_maker', 'Trouble Maker'),
@@ -45,14 +52,34 @@ class ClinicPatient(models.Model):
     insurance = fields.Char(string="Insurance")
     address = fields.Char(string="Address")
     phoneNumber = fields.Char(string='Phone Number', required=True)
-
     note = fields.Text(string='Notes')
-    appointment_ids = fields.One2many('clinic.appointment','patient_id',string='My Appointments')
+    # current_user = fields.Many2one('res.users', string='User', default=lambda self: self.env.user.id)
+    my_appointments = fields.One2many('clinic.appointment', 'patient_id',
+                                       domain=lambda self: [ ('doctor_id.user_id.id', '=', self.env.user.id)],
+                                      string='My Appointments')
+
+    # @api.multi
+    # @api.depends('current_user')
+    # def _compute_appointment_ids_domain(self):
+    #     for rec in self:
+    #         print(rec.current_user.name)
+    #        #  rec.appointment_ids_domain = json.dumps(
+    #        #     [('type', '=', 'product'), ('name', 'like', rec.name)]
+    #        # )
+
+    # @api.depends('price')
+    # def _compute_my_appointments(self):
+    #     print(self.dateOfBirth)
+        # for app in self.filtered(lambda p: p.my_appointments):
+        #     print('ALOOOOOOOOOOOOO')
+        #     print(self.current_user.name)
+        #     self.my_appointments = self.my_appointments.filtered(
+        #         lambda app: app.doctor_id.user_id.name == self.env.user.name)
+        #     print(self.my_appointments)
+        #     return self.my_appointments
 
 
     def open_patient_graph(self):
-        print(self.name == 'Patient1')
-        print(self.appointment_ids.patient_id.id)
         return {
             'name': _('BMI'),
             'domain': [('patient_id.id', '=', self.id)],

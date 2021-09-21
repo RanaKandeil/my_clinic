@@ -66,6 +66,22 @@
                             </div>
                         </div>
                      </div>
+                    <t t-if="o.diagnosis_list">
+                        <div class="text-center" style="margin-bottom:1em;">
+                            <p style="color:#6082B6; font-size:25px"><strong> Diagnosis </strong></p>
+                         </div>
+                         <div class="text-center border">
+                            <div class="text-center" style="margin:1em;">
+                                <div class="row" style="margin:.5em;">
+                                        <div class="col-12 text-left">
+                                            <t t-foreach="o.diagnosis_list" t-as="line">
+                                              <span style="color:#6c757d; font-size:15px" t-field="line.name"/>
+                                            </t>
+                                        </div>
+                                </div>
+                            </div>
+                         </div>
+                     </t>
                      <t t-if="o.notes_html">
                         <div class="text-center" style="margin-bottom:1em;">
                             <p style="color:#6082B6; font-size:25px"><strong> Notes </strong></p>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_form" model="ir.ui.view">
+        <field name="name">clinic.product.form</field>
+        <field name="model">clinic.product</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+                <field name="company"/>
+                <field name="warning_quantity" />
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+     <record id="inventory_form" model="ir.ui.view">
+        <field name="name">clinic.inventory.form</field>
+        <field name="model">clinic.inventory</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom" decoration-danger="quantity == 0" decoration-warning="quantity &lt; warning_quan" decoration-bf="quantity == 0 or quantity &lt; warning_quan">
+                <field name="product_id"/>
+                <field name="warning_quan" invisible="1"/>
+                <field name="product_company"/>
+                <field name="expiration_date"/>
+                <field name="quantity"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_action" model="ir.actions.act_window">
+        <field name="name">Product</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clinic.product</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create Product
+            </p>
+        </field>
+    </record>
+
+      <record id="inventory_action" model="ir.actions.act_window">
+        <field name="name">Inventory</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clinic.inventory</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create Inventory
+            </p>
+        </field>
+    </record>
+
+    <!-- Top menu item -->
+    <menuitem id="product_root"
+              name="Product"
+              parent="my_clinic_root"
+              sequence="20"/>
+
+    <menuitem id="product"
+              name="Products"
+              parent="product_root"
+              action="product_action"
+              sequence="1"/>
+
+    <menuitem id="inventory"
+              name="Inventory"
+              parent="product_root"
+              action="inventory_action"
+              sequence="2"/>
+</odoo>

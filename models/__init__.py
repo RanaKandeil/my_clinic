@@ -5,3 +5,4 @@ from . import configuration
 from . import labtests
 from . import imaging
 from . import whatsapp
+from . import product

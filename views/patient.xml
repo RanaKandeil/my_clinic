@@ -17,6 +17,7 @@
     <record id="patient_form" model="ir.ui.view">
         <field name="name">clinic.patient.form</field>
         <field name="model">clinic.patient</field>
+<!--         <field name="domain">[('appointment_ids.doctor_id.user_id', '=', uid)]</field>-->
         <field name="arch" type="xml">
             <form string="Patient">
                 <sheet>
@@ -50,13 +51,19 @@
                             <field name="referral_patients_id" />
                             <field name="referral_drs_id" />
                             <field name="referral_ads" />
+
                         </group>
                     </group>
-                    <notebook>
+                    <notebook >
                         <page string="Appointments" name="Appointments">
-                            <field name="appointment_ids">
+                        <group>
+
+                            <field name="my_appointments" domain="[('doctor_id.user_id.id','=', 13)]">
                             </field>
+
+                        </group>
                         </page>
+
                     </notebook>
                 </sheet>
             </form>
@@ -86,6 +93,8 @@
                 Create your first patient
             </p>
         </field>
+        <field name="domain">[]</field>
+<!--        <field name="domain">[('appointment_ids.doctor_id.user_id', '=', uid)]</field>-->
     </record>
     <!-- Top menu item -->
     <menuitem id="my_clinic_root"
