@@ -57,7 +57,7 @@
                     <notebook >
                         <page string="Appointments" name="Appointments">
                         <group>
-                            <field name="my_appointments" >
+                            <field name="appointment_ids" >
                             </field>
 
                         </group>

@@ -54,7 +54,7 @@ class ClinicPatient(models.Model):
     phoneNumber = fields.Char(string='Phone Number', required=True)
     note = fields.Text(string='Notes')
     # current_user = fields.Many2one('res.users', string='User', default=lambda self: self.env.user.id)
-    my_appointments = fields.One2many('clinic.appointment', 'patient_id',
+    appointment_ids = fields.One2many('clinic.appointment', 'patient_id',
                                        domain=lambda self: [ ('doctor_id.user_id.id', '=', self.env.user.id)],
                                       string='My Appointments')
 
