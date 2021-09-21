@@ -59,8 +59,6 @@
                         <group>
                             <field name="my_appointments" >
                             </field>
-<!--                            <field name="my_appointments" domain="[('doctor_id.user_id.id','=', 13)]">-->
-<!--                            </field>-->
 
                         </group>
                         </page>
