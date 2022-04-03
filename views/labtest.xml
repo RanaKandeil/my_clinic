@@ -1,32 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-         <record id="labtest_tree" model="ir.ui.view">
-            <field name="name">clinic.labtest.form</field>
-        <field name="model">clinic.labtest</field>
+    <record id="labtest_tree" model="ir.ui.view">
+        <field name="name">clinic.labtest.form</field>
+        <field name="model">clinic.labtestunit</field>
             <field name="arch" type="xml">
                 <tree editable="bottom">
                     <field name="name" />
-                    <field name="prerequisites" />
                     <field name="code" />
                 </tree>
             </field>
-        </record>
+    </record>
 
-        <record id="labtest_form" model="ir.ui.view">
+
+       <record id="labtest_sample_tree" model="ir.ui.view">
+        <field name="name">clinic.sample.form</field>
+        <field name="model">clinic.sample</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name" />
+                </tree>
+            </field>
+    </record>
+
+    <record id="labtest_preinformation_tree" model="ir.ui.view">
+        <field name="name">clinic.preinformation.form</field>
+        <field name="model">clinic.preinformation</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name" />
+                </tree>
+            </field>
+    </record>
+
+     <record id="labtest_form" model="ir.ui.view">
         <field name="name">clinic.labtest.form</field>
         <field name="model">clinic.labtest</field>
         <field name="arch" type="xml">
-            <form string="LabTest">
+            <form string="Labtest">
                 <sheet>
                     <group>
                         <group>
                             <field name="name" />
-                            <field name="prerequisites" />
-                             <field name="code" />
+                        </group>
+                         <group>
+                            <field name="sample_id" />
+                            <field name="preinformation_id" />
                         </group>
                     </group>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+    <record id="labtest_result_form" model="ir.ui.view">
+        <field name="name">clinic.labtestresults.form</field>
+        <field name="model">clinic.labtestresults</field>
+        <field name="arch" type="xml">
+            <form string="Labtest Results">
+                <sheet>
+                    <group>
+                        <field name="patient_id" />
+                        <field name="results_date" />
+                    </group>
+                    <group>
+                        <field name="phoneNumber" />
+                    </group>
+                    <notebook string="Labtest Results">
+                         <page string="Labtest Results" name="Labtest_Results">
+                         <group>
+                                 <field name="labtest_result_ids"  >
+                                     <tree editable="bottom">
+                                         <field name="labtest_id"/>
+                                         <field name="sample_id"/>
+                                         <field name="preinformation_id"/>
+<!--                                         <field name="result_image"/>-->
+                                         <field name="result_image" widget="image" class="oe_avatar"  options='{"zoom": true, "preview_image":"labtest_img","size": [700, 700]}'/>
+                                     </tree>
+                                 </field>
+                            </group>
+                         </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="labtest_tree" model="ir.ui.view">
+        <field name="name">clinic.labtest.form</field>
+        <field name="model">clinic.labtest</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="sample_id" />
+                    <field name="preinformation_id" />
+                </tree>
+            </field>
+    </record>
+
+    <record id="labtest_result_tree" model="ir.ui.view">
+        <field name="name">clinic.labtestresult.form</field>
+        <field name="model">clinic.labtestresults</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="patient_id" />
+                    <field name="results_date" />
+                </tree>
+            </field>
+    </record>
+
+    <record id="preinformation_action" model="ir.actions.act_window">
+        <field name="name">LabTest Pre-Information</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clinic.preinformation</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Pre-information
+            </p>
+        </field>
+    </record>
+
+    <record id="sample_action" model="ir.actions.act_window">
+        <field name="name">LabTest Samples</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clinic.sample</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Sample
+            </p>
+        </field>
+    </record>
+
+
+    <record id="unit_action" model="ir.actions.act_window">
+        <field name="name">Units</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clinic.labtestunit</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first LabTest Unit
+            </p>
         </field>
     </record>
 
@@ -41,16 +156,57 @@
             </p>
         </field>
     </record>
-    <!-- Top menu item -->
-<!--    <menuitem id="my_clinic_labtest_root"-->
-<!--              name="Labtest"-->
-<!--              parent="my_clinic_root"-->
-<!--              sequence="20"/>-->
+
+    <record id="labtest_results_action" model="ir.actions.act_window">
+        <field name="name">Labtest Results</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clinic.labtestresults</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first LabTest Result
+            </p>
+        </field>
+    </record>
 
     <menuitem id="my_clinic_labtest"
               name="Labtest"
-              parent="prescription_root"
+              parent="configuration_root"
+              sequence="22"/>
+
+    <menuitem id="my_clinic_unit_submenu"
+              name="Units"
+              parent="my_clinic_labtest"
+              action="unit_action"
+              sequence="1"/>
+
+    <menuitem id="my_clinic_sample_submenu"
+              name="Sample"
+              parent="my_clinic_labtest"
+              action="sample_action"
+              sequence="3"/>
+
+    <menuitem id="my_clinic_preinformation_submenu"
+              name="PreInformation"
+              parent="my_clinic_labtest"
+              action="preinformation_action"
+              sequence="4"/>
+
+    <menuitem id="labtest_root"
+              name="LabTests"
+              parent="my_clinic_root"
+              sequence="17"/>
+
+    <menuitem id="labtest_child_root"
+              name="LabTests"
+              parent="labtest_root"
               action="labtest_action"
-              sequence="20"/>
+              sequence="1"/>
+
+    <menuitem id="labtest_resutls"
+              name="LabTest Results"
+              parent="labtest_root"
+              action="labtest_results_action"
+              sequence="2"/>
 
 </odoo>

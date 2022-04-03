@@ -216,24 +216,17 @@
               action="add_doctor_action"
               sequence="1"/>
 
+    <menuitem id="my_clinic_medication"
+              name="Medications"
+              parent="configuration_root"
+              action="medication_action"
+              sequence="12"/>
+
     <menuitem id="hospital"
               name="Hospital"
               parent="configuration_root"
               action="hospital_action"
               sequence="13"/>
-
-    <menuitem id="surgery"
-              name="Surgery"
-              parent="configuration_root"
-              action="surgery_action"
-              sequence="21"/>
-
-    <menuitem id="insurance"
-              name="Insurance"
-              parent="configuration_root"
-              action="insurance_action"
-              sequence="20"/>
-
 
     <menuitem id="Appointment_type"
               name="Appointment Type"
@@ -241,11 +234,17 @@
               action="appointment_type_action"
               sequence="14"/>
 
-     <menuitem id="my_clinic_medication"
-              name="Medications"
+    <menuitem id="insurance"
+              name="Insurance"
               parent="configuration_root"
-              action="medication_action"
-              sequence="12"/>
+              action="insurance_action"
+              sequence="20"/>
+
+    <menuitem id="surgery"
+              name="Surgery"
+              parent="configuration_root"
+              action="surgery_action"
+              sequence="21"/>
 
 
 </odoo>

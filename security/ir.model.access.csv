@@ -2,12 +2,12 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_hospital_patient,access.hospital.patient,model_hospital_patient,,1,1,1,1
 access_clinic_patient,access.clinic.patient,model_clinic_patient,,1,1,1,1
 access_clinic_appointment,access.clinic.appointment,model_clinic_appointment,,1,1,1,1
-access_clinic_medication,access.clinic.medication,model_clinic_medication,my_clinic.group_clinic_doctor,1,1,1,1
+access_clinic_medication,access.clinic.medication,model_clinic_medicationpresc,my_clinic.group_clinic_doctor,1,1,1,1
 access_clinic_prescription,access.clinic.prescription,model_clinic_prescription,my_clinic.group_clinic_doctor,1,1,1,1
 access_clinic_appointmenttype,access.clinic.appointmenttype,model_clinic_appointmenttype,,1,1,1,1
 access_clinic_imaging,access.clinic.imaging,model_clinic_imaging,,1,1,1,1
 access_clinic_labtest,access.clinic.labtest,model_clinic_labtest,,1,1,1,1
-access_clinic_medicationpresc,access.clinic.medicationpresc,model_clinic_medicationpresc,,1,1,1,1
+access_clinic_medicationpresc,access.clinic.medicationpresc,model_clinic_medication,my_clinic.group_clinic_doctor,1,1,1,1
 access_clinic_concentration,access.clinic.concentration,model_clinic_concentration,,1,1,1,1
 access_clinic_dosageform,access.clinic.dosageform,model_clinic_dosageform,,1,1,1,1
 access_clinic_frequency,access.clinic.frequency,model_clinic_frequency,,1,1,1,1
@@ -25,3 +25,10 @@ access_clinic_inventory,access.clinic.inventory,model_clinic_inventory,,1,1,1,1
 access_clinic_product,access.clinic.product,model_clinic_product,,1,1,1,1
 access_clinic_appointmentinventory,access.clinic.appointmentinventory,model_clinic_appointmentinventory,,1,1,1,1
 access_group_user,Access User,model_whatsapp_new_message_wizard,base.group_user,1,1,1,1
+access_clinic_labtestunit,access.clinic.labtestunit,model_clinic_labtestunit,,1,1,1,1
+access_clinic_labtest,access.clinic.labtest,model_clinic_labtest,,1,1,1,1
+access_clinic_labtestpatientresult,access.clinic.labtestpatientresult,model_clinic_labtestpatientresult,,1,1,1,1
+access_clinic_labtestresults,access.clinic.labtestresults,model_clinic_labtestresults,,1,1,1,1
+access_clinic_sample,access.clinic.sample,model_clinic_sample,,1,1,1,1
+access_clinic_preinformation,access.clinic.preinformation,model_clinic_preinformation,,1,1,1,1
+access_clinic_complain,access.clinic.complain,model_clinic_complain,,1,1,1,1

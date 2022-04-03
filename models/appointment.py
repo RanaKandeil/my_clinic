@@ -47,6 +47,7 @@ class Appointment(models.Model):
     labtest_ids = fields.Many2many('clinic.labtest', 'appointment_labtest_rel', 'appointment_id',
                                       'labtest_id', string='My Labtests')
     labtest_results = fields.Char(string='Labtests Results')
+    labtest_img = fields.Image(string="Lab Test Image")
     imaging_ids = fields.Many2many('clinic.imaging', 'appointment_imaging_rel', 'appointment_id',
                                    'imaging_id', string='My Imaging')
     imaging_results = fields.Char(string='Imaging Results')
@@ -58,6 +59,8 @@ class Appointment(models.Model):
                                    'patient_history_id', string='Patient History')
     diagnosis_list = fields.Many2many('clinic.diagnosis', 'appointment_diagnosis_rel', 'appointment_id',
                                             'diagnosis_id', string='Diagnosis')
+    patient_complain = fields.Many2many('clinic.complain', 'appointment_ptn_complain_rel', 'appointment_id',
+                                      'ptn_complain_id', string='Patient Complain')
     services = fields.Char(string="Services",default="")
     current_user = fields.Many2one('res.users', string='User', default=lambda self: self.env.user)
 
@@ -180,8 +183,9 @@ class Appointment(models.Model):
 
     def action_done(self):
         print(self.appointmentDate)
+        print(self.appointmentDate.strftime('%Y-%m-%d'))
         print(self.today)
-        if self.appointmentDate > self.today:
+        if self.appointmentDate.strftime('%Y-%m-%d') > self.today.strftime('%Y-%m-%d'):
             raise ValidationError(
                 _('Appointment Date is greater than today. So It cannot be Confirmed !'))
         else:
@@ -201,7 +205,11 @@ class PatientHistory(models.Model):
 
     name = fields.Char(string="Patient History")
 
+class PatientComplain(models.Model):
+    _name = "clinic.complain"
+    _description = "patinet Complain"
 
+    name = fields.Char(string="Diagnosis")
 
 class Diagnosis(models.Model):
     _name = "clinic.diagnosis"

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-
-
     <record id="prescription_form" model="ir.ui.view">
         <field name="name">clinic.prescription.form</field>
         <field name="model">clinic.prescription</field>

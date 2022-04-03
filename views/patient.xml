@@ -56,12 +56,24 @@
                     </group>
                     <notebook >
                         <page string="Appointments" name="Appointments">
-                        <group>
-                            <field name="appointment_ids" >
-                            </field>
-
-                        </group>
+                            <group>
+                                <field name="appointment_ids" >
+                                </field>
+                            </group>
                         </page>
+                        <page string="Lab Test Result" name="Lab Test Result">
+                            <group>
+                                <field name="labTest_ids" >
+                                </field>
+                            </group>
+                        </page>
+
+<!--                        <page string="Medication" >-->
+<!--                            <group>-->
+<!--                                <field name="medication_Prescrption_ids" >-->
+<!--                                </field>-->
+<!--                            </group>-->
+<!--                        </page>-->
 
                     </notebook>
                 </sheet>

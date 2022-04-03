@@ -12,8 +12,6 @@ class ClinicPatient(models.Model):
 
     @api.model
     def _default_user(self):
-        print(self.env.user.id)
-        print(self.env.user)
         return self.env.context.get('user_id', self.env.user.id)
 
     name = fields.Char(string='Name', required=True)
@@ -53,11 +51,13 @@ class ClinicPatient(models.Model):
     address = fields.Char(string="Address")
     phoneNumber = fields.Char(string='Phone Number', required=True)
     note = fields.Text(string='Notes')
-    # current_user = fields.Many2one('res.users', string='User', default=lambda self: self.env.user.id)
     appointment_ids = fields.One2many('clinic.appointment', 'patient_id',
                                        domain=lambda self: [ ('doctor_id.user_id.id', '=', self.env.user.id)],
                                       string='My Appointments')
-
+    labTest_ids = fields.One2many('clinic.labtestresults', 'patient_id',
+                                      # domain=lambda self: [('doctor_id.user_id.id', '=', self.env.user.id)],
+                                      string='My LAbtests')
+    # medication_Prescrption_ids = fields.One2many(related='appointment_ids.medication_Prescrption_ids')
     # @api.multi
     # @api.depends('current_user')
     # def _compute_appointment_ids_domain(self):
